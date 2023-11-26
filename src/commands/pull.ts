@@ -85,19 +85,22 @@ export const pull = new Command()
         return;
       }
 
-      const env = Object.entries(secrets.data).reduce((acc, [key, value]) => {
-        acc[key] = value;
-        return acc;
-      }, {} as Record<string, string>);
+      const env = Object.entries(secrets.data).reduce(
+        (acc, [key, value]) => {
+          acc[key] = value;
+          return acc;
+        },
+        {} as Record<string, string>
+      );
 
       const formattedEnv =
         options.format === 'json'
           ? JSON.stringify(env, null, 2)
           : options.format === 'dotenv'
-          ? Object.entries(env)
-              .map(([key, value]) => `${key}=${value}`)
-              .join('\n')
-          : '';
+            ? Object.entries(env)
+                .map(([key, value]) => `${key}=${value}`)
+                .join('\n')
+            : '';
 
       logger.log('');
       spinner.succeed('Done.');

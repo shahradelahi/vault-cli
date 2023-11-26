@@ -86,10 +86,13 @@ export const push = new Command()
       }
 
       const env = await dotenv.config({ path: envFile });
-      const secrets = Object.entries(env.parsed || {}).reduce((acc, [key, value]) => {
-        acc[key] = value;
-        return acc;
-      }, {} as Record<string, string>);
+      const secrets = Object.entries(env.parsed || {}).reduce(
+        (acc, [key, value]) => {
+          acc[key] = value;
+          return acc;
+        },
+        {} as Record<string, string>
+      );
 
       logger.log('');
       const writeProgress = ora(`Writing secrets to Vault...`).start();
