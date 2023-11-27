@@ -43,5 +43,12 @@
   ],
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "keywords": [
+    "vault",
+    "cli",
+    "hashicorp",
+    "secrets",
+    "litehex"
+  ]
 }

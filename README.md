@@ -1,4 +1,4 @@
-# Vault CLI for
+# Vault CLI
 
 A minimal CLI to access your HashiCorp's Vault secrets from the command line.
 
@@ -17,7 +17,6 @@ bunx @litehex/vault-cli --help
 ```bash
 npm i -g @litehex/vault-cli
 ```
-
 
 ### make-profile
 
@@ -59,7 +58,7 @@ Options:
   -P, --profile <name>           name of the profile to use.
   --endpoint-url <endpoint-url>  Vault endpoint URL
   --token <vault-token>          Vault token
-  --cwd <cwd>                    Current working directory (default: "/home/jesus/Projects/WebstormProjects/Github/Litehex/vault-cli")
+  --cwd <cwd>                    Current working directory (default: ".")
   --force                        Write to Vault even if the secrets are in conflict (default: false)
   -h, --help                     display help for command
 ```
@@ -91,7 +90,7 @@ Options:
   --token <vault-token>          Vault token
   -E, --env-path <env-path>      Path to the environment file
   -F, --format <format>          Format of the environment file (default: "dotenv")
-  --cwd <cwd>                    Current working directory (default: "/home/jesus/Projects/WebstormProjects/Github/Litehex/vault-cli")
+  --cwd <cwd>                    Current working directory (default: ".")
   --force                        Write environment file even if it exists (default: false)
   -h, --help                     display help for command
 ```
@@ -109,4 +108,3 @@ vault pull --profile my-profile secret/data/my-app --env-path .env
 ### License
 
 This project is licensed under the GPL-3.0 License - see the [LICENSE](LICENSE) file for details
-
