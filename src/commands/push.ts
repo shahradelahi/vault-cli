@@ -4,13 +4,13 @@ import logger from '@/logger.ts';
 import { Client } from '@litehex/node-vault';
 import { handleError } from '@/utils/handle-error.ts';
 import { z } from 'zod';
-import { exists } from 'node:fs/promises';
 import prompts from 'prompts';
 import dotenv from 'dotenv';
 import ora from 'ora';
 import chalk from 'chalk';
 import { doesSecretPathExist } from '@/lib/vault.ts';
 import { getCredentialsFromOpts } from '@/lib/helpers.ts';
+import { fsAccess } from '@/utils/fs-access.ts';
 
 const pushOptionsSchema = z.object({
   name: z.string().optional(),
@@ -42,7 +42,7 @@ export const push = new Command()
 
       const cwd = path.resolve(options.cwd);
 
-      if (!(await exists(cwd))) {
+      if (!(await fsAccess(cwd))) {
         logger.error(`The path ${cwd} does not exist. Please try again.`);
         process.exitCode = 1;
         return;
@@ -50,7 +50,7 @@ export const push = new Command()
 
       const envFile = path.resolve(cwd, envPath);
 
-      if (!(await exists(envFile))) {
+      if (!(await fsAccess(envFile))) {
         logger.error(`The path ${envFile} does not exist. Please try again.`);
         process.exitCode = 1;
         return;

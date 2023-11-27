@@ -1,8 +1,8 @@
-import { access } from 'node:fs/promises';
+import { promises } from 'fs';
 
 export async function fsAccess(path: string): Promise<boolean> {
   try {
-    await access(path);
+    await promises.access(path);
     return true;
   } catch (error) {
     return false;

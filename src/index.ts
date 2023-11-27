@@ -1,9 +1,8 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 
 import { Command } from 'commander';
 import { getPackageInfo } from './utils/get-package-info.ts';
 import { push, pull, makeProfile } from './commands';
-import 'dotenv/config';
 
 process.on('SIGINT', () => process.exit(0));
 process.on('SIGTERM', () => process.exit(0));

@@ -4,12 +4,13 @@ import logger from '@/logger.ts';
 import { Client } from '@litehex/node-vault';
 import { handleError } from '@/utils/handle-error.ts';
 import { z } from 'zod';
-import { exists } from 'node:fs/promises';
 import prompts from 'prompts';
 import ora from 'ora';
 import chalk from 'chalk';
 import { doesSecretPathExist } from '@/lib/vault.ts';
 import { getCredentialsFromOpts } from '@/lib/helpers.ts';
+import { fsAccess } from '@/utils/fs-access.ts';
+import { promises } from 'fs';
 
 const pushOptionsSchema = z.object({
   name: z.string().optional(),
@@ -17,7 +18,7 @@ const pushOptionsSchema = z.object({
   token: z.string().optional(),
   cwd: z.string(),
   vaultPath: z.string(),
-  envPath: z.string().optional(),
+  envPath: z.string().default('.env'),
   format: z.enum(['dotenv', 'json']).default('dotenv'),
   force: z.boolean().default(false)
 });
@@ -28,7 +29,7 @@ export const pull = new Command()
   .option('-P, --profile <name>', 'name of the profile to use.')
   .option('--endpoint-url <endpoint-url>', 'Vault endpoint URL')
   .option('--token <vault-token>', 'Vault token')
-  .option('-E, --env-path <env-path>', 'Path to the environment file')
+  .option('-E, --env-path <env-path>', 'Path to the environment file', '.env')
   .option('-F, --format <format>', 'Format of the environment file', 'dotenv')
   .option('--cwd <cwd>', 'Current working directory', process.cwd())
   .option('--force', 'Write environment file even if it exists', false)
@@ -43,7 +44,7 @@ export const pull = new Command()
 
       const cwd = path.resolve(options.cwd);
 
-      if (!(await exists(cwd))) {
+      if (!(await fsAccess(cwd))) {
         logger.error(`The path ${cwd} does not exist. Please try again.`);
         process.exitCode = 1;
         return;
@@ -119,7 +120,7 @@ export const pull = new Command()
 
       const envAbsPath = path.resolve(cwd, options.envPath);
 
-      if (!options.force && (await exists(envAbsPath))) {
+      if (!options.force && (await fsAccess(envAbsPath))) {
         const response = await prompts({
           type: 'confirm',
           name: 'value',
@@ -137,8 +138,7 @@ export const pull = new Command()
       const writeProgress = ora('Writing secrets to specified file').start();
       logger.log('');
 
-      const envFile = Bun.file(envAbsPath);
-      await Bun.write(envFile, formattedEnv);
+      await promises.writeFile(envAbsPath, formattedEnv, 'utf-8');
 
       logger.log('');
       writeProgress.succeed(`Done.`);

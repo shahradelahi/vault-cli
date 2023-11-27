@@ -1,5 +1,6 @@
 import { Profile } from '@/typeings.ts';
 import toml from '@iarna/toml';
+import { promises } from 'fs';
 import { CREDENTIALS_PATH, getCredentials } from '@/lib/credentials.ts';
 
 export async function getProfile(name: string): Promise<Profile | undefined> {
@@ -13,7 +14,7 @@ export async function setProfile(name: string, profile: Profile): Promise<void> 
 
   credentials[name] = profile;
 
-  await Bun.write(CREDENTIALS_PATH, toml.stringify(credentials));
+  await promises.writeFile(CREDENTIALS_PATH, toml.stringify(credentials));
 }
 
 export async function deleteProfile(name: string): Promise<void> {
@@ -21,7 +22,7 @@ export async function deleteProfile(name: string): Promise<void> {
 
   delete credentials[name];
 
-  await Bun.write(CREDENTIALS_PATH, toml.stringify(credentials));
+  await promises.writeFile(CREDENTIALS_PATH, toml.stringify(credentials));
 }
 
 export async function getAllProfiles(): Promise<Record<string, Profile>> {
