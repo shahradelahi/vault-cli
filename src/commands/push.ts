@@ -8,7 +8,7 @@ import prompts from 'prompts';
 import dotenv from 'dotenv';
 import ora from 'ora';
 import chalk from 'chalk';
-import { doesSecretPathExist } from '@/lib/vault.ts';
+import { doesSecretPathExist, readKV2Path } from '@/lib/vault.ts';
 import { getCredentialsFromOpts } from '@/lib/helpers.ts';
 import { fsAccess } from '@/utils/fs-access.ts';
 
@@ -62,6 +62,7 @@ export const push = new Command()
         endpoint: credentials.endpointUrl,
         token: credentials.token
       });
+      const kv2 = vc.kv2();
 
       const status = await vc.status();
       if (status.sealed) {
@@ -97,8 +98,10 @@ export const push = new Command()
       logger.log('');
       const writeProgress = ora(`Writing secrets to Vault...`).start();
 
-      await vc.write({
-        path: vaultPath,
+      const { mountPath , path: secretPath} = readKV2Path(vaultPath);
+      await kv2.write({
+        mountPath,
+        path: secretPath,
         data: secrets
       });
 

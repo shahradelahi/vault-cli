@@ -7,7 +7,7 @@ import { z } from 'zod';
 import prompts from 'prompts';
 import ora from 'ora';
 import chalk from 'chalk';
-import { doesSecretPathExist } from '@/lib/vault.ts';
+import { doesSecretPathExist, readKV2Path } from '@/lib/vault.ts';
 import { getCredentialsFromOpts } from '@/lib/helpers.ts';
 import { fsAccess } from '@/utils/fs-access.ts';
 import { promises } from 'fs';
@@ -18,8 +18,8 @@ const pullOptionsSchema = z.object({
   token: z.string().optional(),
   cwd: z.string(),
   vaultPath: z.string(),
-  envPath: z.string().default('.env'),
-  format: z.enum(['dotenv', 'json']).default('dotenv'),
+  envPath: z.string().optional(),
+  format: z.enum([ 'dotenv', 'json' ]).default('dotenv'),
   force: z.boolean().default(false)
 });
 
@@ -29,7 +29,7 @@ export const pull = new Command()
   .option('-P, --profile <name>', 'Name of the profile to use.')
   .option('--endpoint-url <endpoint-url>', 'Vault endpoint URL')
   .option('--token <vault-token>', 'Vault token')
-  .option('-E, --env-path <env-path>', 'Path to the environment file', '.env')
+  .option('-E, --env-path <env-path>', 'Path to the environment file')
   .option('-F, --format <format>', 'Format of the environment file', 'dotenv')
   .option('--cwd <cwd>', 'Current working directory', process.cwd())
   .option('--force', 'Write environment file even if it exists', false)
@@ -56,6 +56,7 @@ export const pull = new Command()
         endpoint: credentials.endpointUrl,
         token: credentials.token
       });
+      const kv2 = vc.kv2();
 
       const status = await vc.status();
       if (status.sealed) {
@@ -70,10 +71,14 @@ export const pull = new Command()
         return;
       }
 
-      const spinner = ora('Pulling secrets from Vault').start();
       logger.log('');
+      const spinner = ora('Pulling secrets from Vault').start();
 
-      const { data: secrets } = await vc.read({ path: vaultPath, list: false, engine: 'kv2' });
+      const { mountPath, path: secretPath } = readKV2Path(vaultPath);
+      const { data: secrets } = await kv2.read({
+        mountPath,
+        path: secretPath
+      });
       if (!secrets) {
         logger.error(`No secrets found at ${vaultPath}. Please try again.`);
         process.exitCode = 1;
@@ -87,7 +92,7 @@ export const pull = new Command()
       }
 
       const env = Object.entries(secrets.data).reduce(
-        (acc, [key, value]) => {
+        (acc, [ key, value ]) => {
           acc[key] = value;
           return acc;
         },
@@ -99,20 +104,16 @@ export const pull = new Command()
           ? JSON.stringify(env, null, 2)
           : options.format === 'dotenv'
             ? Object.entries(env)
-                .map(([key, value]) => `${key}=${value}`)
-                .join('\n')
+              .map(([ key, value ]) => `${key}=${value}`)
+              .join('\n')
             : '';
 
       logger.log('');
-      spinner.succeed('Done.');
+      spinner.succeed(`Done.`);
 
       if (!options.envPath) {
         logger.log('');
-        console.log(
-          chalk.bold('Environment variables:'),
-          '\n',
-          formattedEnv === '' ? env : formattedEnv
-        );
+        console.log(`${chalk.bold('Environment variables:')}\n${formattedEnv === '' ? env : formattedEnv.trim()}`);
         logger.log('');
         process.exitCode = 0;
         return;
