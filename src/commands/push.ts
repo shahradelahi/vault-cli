@@ -98,7 +98,7 @@ export const push = new Command()
       logger.log('');
       const writeProgress = ora(`Writing secrets to Vault...`).start();
 
-      const { mountPath , path: secretPath} = readKV2Path(vaultPath);
+      const { mountPath, path: secretPath } = readKV2Path(vaultPath);
       await kv2.write({
         mountPath,
         path: secretPath,

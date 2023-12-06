@@ -19,7 +19,7 @@ const pullOptionsSchema = z.object({
   cwd: z.string(),
   vaultPath: z.string(),
   envPath: z.string().optional(),
-  format: z.enum([ 'dotenv', 'json' ]).default('dotenv'),
+  format: z.enum(['dotenv', 'json']).default('dotenv'),
   force: z.boolean().default(false)
 });
 
@@ -92,7 +92,7 @@ export const pull = new Command()
       }
 
       const env = Object.entries(secrets.data).reduce(
-        (acc, [ key, value ]) => {
+        (acc, [key, value]) => {
           acc[key] = value;
           return acc;
         },
@@ -104,8 +104,8 @@ export const pull = new Command()
           ? JSON.stringify(env, null, 2)
           : options.format === 'dotenv'
             ? Object.entries(env)
-              .map(([ key, value ]) => `${key}=${value}`)
-              .join('\n')
+                .map(([key, value]) => `${key}=${value}`)
+                .join('\n')
             : '';
 
       logger.log('');
@@ -113,7 +113,11 @@ export const pull = new Command()
 
       if (!options.envPath) {
         logger.log('');
-        console.log(`${chalk.bold('Environment variables:')}\n${formattedEnv === '' ? env : formattedEnv.trim()}`);
+        console.log(
+          `${chalk.bold('Environment variables:')}\n${
+            formattedEnv === '' ? env : formattedEnv.trim()
+          }`
+        );
         logger.log('');
         process.exitCode = 0;
         return;

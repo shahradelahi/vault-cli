@@ -18,12 +18,11 @@ export function readKV2Path(path: string): {
   mountPath: string;
   path: string;
 } {
-
   if (!path.includes('/')) {
     throw new Error('Given path is not a valid KV2 path');
   }
 
-  const [ mountPath, ...rest ] = path.split('/');
+  const [mountPath, ...rest] = path.split('/');
   const _path = rest.join('/');
 
   return {
