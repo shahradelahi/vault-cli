@@ -13,7 +13,7 @@ import { getCredentialsFromOpts } from '@/lib/helpers.ts';
 import { fsAccess } from '@/utils/fs-access.ts';
 
 const pushOptionsSchema = z.object({
-  name: z.string().optional(),
+  profile: z.string().optional(),
   endpointUrl: z.string().optional(),
   token: z.string().optional(),
   cwd: z.string(),
@@ -25,7 +25,7 @@ const pushOptionsSchema = z.object({
 export const push = new Command()
   .command('push <env-file> <secrets-path>')
   .description('Push an environment to Vault')
-  .option('-P, --profile <name>', 'name of the profile to use.')
+  .option('-P, --profile <name>', 'Name of the profile to use.')
   .option('--endpoint-url <endpoint-url>', 'Vault endpoint URL')
   .option('--token <vault-token>', 'Vault token')
   .option('--cwd <cwd>', 'Current working directory', process.cwd())

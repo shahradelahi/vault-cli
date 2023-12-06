@@ -12,8 +12,8 @@ import { getCredentialsFromOpts } from '@/lib/helpers.ts';
 import { fsAccess } from '@/utils/fs-access.ts';
 import { promises } from 'fs';
 
-const pushOptionsSchema = z.object({
-  name: z.string().optional(),
+const pullOptionsSchema = z.object({
+  profile: z.string().optional(),
   endpointUrl: z.string().optional(),
   token: z.string().optional(),
   cwd: z.string(),
@@ -26,7 +26,7 @@ const pushOptionsSchema = z.object({
 export const pull = new Command()
   .command('pull <secrets-path>')
   .description('Pull an environment from Vault')
-  .option('-P, --profile <name>', 'name of the profile to use.')
+  .option('-P, --profile <name>', 'Name of the profile to use.')
   .option('--endpoint-url <endpoint-url>', 'Vault endpoint URL')
   .option('--token <vault-token>', 'Vault token')
   .option('-E, --env-path <env-path>', 'Path to the environment file', '.env')
@@ -37,7 +37,7 @@ export const pull = new Command()
     logger.log('');
 
     try {
-      const options = pushOptionsSchema.parse({
+      const options = pullOptionsSchema.parse({
         ...opts,
         vaultPath
       });
