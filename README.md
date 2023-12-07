@@ -55,7 +55,7 @@ Usage: vault push [options] <env-file> <secrets-path>
 Push an environment to Vault
 
 Options:
-  -P, --profile <name>           name of the profile to use.
+  -P, --profile <name>           Name of the profile to use.
   --endpoint-url <endpoint-url>  Vault endpoint URL
   --token <vault-token>          Vault token
   --cwd <cwd>                    Current working directory (default: ".")
@@ -67,10 +67,10 @@ Options:
 
 ```bash
 # Push a .env.local file to Vault
-vault push --profile my-profile .env.local secret/data/my-app
+vault push --profile my-profile .env.local secret/my-app
 
 # Use credentials instead of a profile
-vault push --endpoint-url https://vault.example.com --token my-token .env.local secret/data/my-app
+vault push --endpoint-url https://vault.example.com --token my-token .env.local secret/my-app
 ```
 
 ### pull
@@ -85,7 +85,7 @@ Usage: vault pull [options] <secrets-path>
 Pull an environment from Vault
 
 Options:
-  -P, --profile <name>           name of the profile to use.
+  -P, --profile <name>           Name of the profile to use.
   --endpoint-url <endpoint-url>  Vault endpoint URL
   --token <vault-token>          Vault token
   -E, --env-path <env-path>      Path to the environment file
@@ -99,10 +99,43 @@ Options:
 
 ```bash
 # Pull a secret from Vault
-vault pull --profile my-profile secret/data/my-app
+vault pull --profile my-profile secret/my-app
 
 # Pull a secret from Vault and save it to a .env file
-vault pull --profile my-profile secret/data/my-app --env-path .env
+vault pull --profile my-profile secret/my-app --env-path .env
+```
+
+### rm
+
+This command will remove a path or some versions of a secret.
+
+#### Options
+
+```txt
+Usage: vault rm [options] <secrets-path> [versions...]
+
+Remove a secret from Vault
+
+Arguments:
+  secrets-path
+  versions                       Versions to remove. By default, path will be removed (default: [])
+
+Options:
+  -P, --profile <name>           Name of the profile to use
+  --endpoint-url <endpoint-url>  Vault endpoint URL
+  --token <vault-token>          Vault token
+  --force                        Remove the secret without confirmation (default: false)
+  -h, --help                     display help for command
+```
+
+#### Examples
+
+```bash
+# Remove a path secret from Vault
+vault rm --profile my-profile secret/my-app
+
+# Remove a secret version from Vault
+vault rm --profile my-profile secret/my-app 3 4
 ```
 
 ### License
