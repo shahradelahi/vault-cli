@@ -10,18 +10,7 @@ import chalk from 'chalk';
 import { doesSecretPathExist, readKV2Path } from '@/lib/vault.ts';
 import { getCredentialsFromOpts } from '@/lib/helpers.ts';
 import { fsAccess } from '@/utils/fs-access.ts';
-import { promises } from 'fs';
-
-const pullOptionsSchema = z.object({
-  profile: z.string().optional(),
-  endpointUrl: z.string().optional(),
-  token: z.string().optional(),
-  cwd: z.string(),
-  vaultPath: z.string(),
-  envPath: z.string().optional(),
-  format: z.enum(['dotenv', 'json']).default('dotenv'),
-  force: z.boolean().default(false)
-});
+import { promises } from 'node:fs';
 
 export const pull = new Command()
   .command('pull <secrets-path>')
@@ -37,10 +26,21 @@ export const pull = new Command()
     logger.log('');
 
     try {
-      const options = pullOptionsSchema.parse({
-        ...opts,
-        vaultPath
-      });
+      const options = z
+        .object({
+          profile: z.string().optional(),
+          endpointUrl: z.string().optional(),
+          token: z.string().optional(),
+          cwd: z.string(),
+          vaultPath: z.string(),
+          envPath: z.string().optional(),
+          format: z.enum(['dotenv', 'json', 'shell']).default('dotenv'),
+          force: z.boolean().default(false)
+        })
+        .parse({
+          ...opts,
+          vaultPath
+        });
 
       const cwd = path.resolve(options.cwd);
 
@@ -71,7 +71,6 @@ export const pull = new Command()
         return;
       }
 
-      logger.log('');
       const spinner = ora('Pulling secrets from Vault').start();
 
       const { mountPath, path: secretPath } = readKV2Path(vaultPath);
@@ -99,6 +98,20 @@ export const pull = new Command()
         {} as Record<string, string>
       );
 
+      logger.log('');
+      spinner.succeed(`Done.`);
+
+      if (options.format === 'shell') {
+        logger.log('');
+        for (const [key, value] of Object.entries(env)) {
+          logger.log(`export ${key}=${value};`);
+        }
+
+        logger.log('');
+        process.exitCode = 0;
+        return;
+      }
+
       const formattedEnv =
         options.format === 'json'
           ? JSON.stringify(env, null, 2)
@@ -107,9 +120,6 @@ export const pull = new Command()
                 .map(([key, value]) => `${key}=${value}`)
                 .join('\n')
             : '';
-
-      logger.log('');
-      spinner.succeed(`Done.`);
 
       if (!options.envPath) {
         logger.log('');

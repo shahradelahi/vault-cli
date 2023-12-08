@@ -103,6 +103,9 @@ vault pull --profile my-profile secret/my-app
 
 # Pull a secret from Vault and save it to a .env file
 vault pull --profile my-profile secret/my-app --env-path .env
+
+# Pull a secret from Vault and add them to shell environment
+vault pull --profile my-profile secret/my-app --format shell | grep -e '^export' | source /dev/stdin
 ```
 
 ### rm
