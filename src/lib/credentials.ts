@@ -12,11 +12,36 @@ export const CREDENTIALS_PATH = path.resolve(path.join(BASE_PATH, 'credentials')
 
 export async function ensureCredentialsPaths(): Promise<void> {
   if (!(await fsAccess(BASE_PATH))) {
-    await promises.mkdir(BASE_PATH);
+    await promises.mkdir(BASE_PATH, { mode: 0o700 });
   }
 
   if (!(await fsAccess(CREDENTIALS_PATH))) {
-    await promises.writeFile(CREDENTIALS_PATH, '');
+    await promises.writeFile(CREDENTIALS_PATH, '', { mode: 0o600 });
+  }
+
+  await checkPermissions();
+}
+
+// Checks for permissions and warn if creds directory or its file is too open
+async function checkPermissions(): Promise<void> {
+  const stats = await promises.stat(CREDENTIALS_PATH);
+
+  if (stats.mode !== 0o600) {
+    await promises.chmod(CREDENTIALS_PATH, 0o600).catch(() => {
+      console.warn(
+        `The file ${CREDENTIALS_PATH} is readable by other users on this system! This is not recommended!`
+      );
+    });
+  }
+
+  const parentStats = await promises.stat(BASE_PATH);
+
+  if (parentStats.mode !== 0o700) {
+    await promises.chmod(BASE_PATH, 0o700).catch(() => {
+      console.warn(
+        `The directory ${BASE_PATH} is readable by other users on this system! This is not recommended!`
+      );
+    });
   }
 }
 
