@@ -18,7 +18,7 @@ export const pull = new Command()
   .option('-P, --profile <name>', 'Name of the profile to use.')
   .option('--endpoint-url <endpoint-url>', 'Vault endpoint URL')
   .option('--token <vault-token>', 'Vault token')
-  .option('-E, --env-path <env-path>', 'Path to the environment file')
+  .option('-O, --output-file <output-path>', 'Path to write the environment file to')
   .option('-F, --format <format>', 'Format of the environment file', 'dotenv')
   .option('--cwd <cwd>', 'Current working directory', process.cwd())
   .option('--force', 'Write environment file even if it exists', false)
@@ -33,7 +33,7 @@ export const pull = new Command()
           token: z.string().optional(),
           cwd: z.string(),
           vaultPath: z.string(),
-          envPath: z.string().optional(),
+          outputFile: z.string().optional(),
           format: z.enum(['dotenv', 'json', 'shell']).default('dotenv'),
           force: z.boolean().default(false)
         })
@@ -104,7 +104,7 @@ export const pull = new Command()
       if (options.format === 'shell') {
         logger.log('');
         for (const [key, value] of Object.entries(env)) {
-          logger.log(`export ${key}=${value};`);
+          logger.log(`export ${key}="${value}"`);
         }
 
         logger.log('');
@@ -121,7 +121,7 @@ export const pull = new Command()
                 .join('\n')
             : '';
 
-      if (!options.envPath) {
+      if (!options.outputFile) {
         logger.log('');
         console.log(
           `${chalk.bold('Environment variables:')}\n${
@@ -133,7 +133,7 @@ export const pull = new Command()
         return;
       }
 
-      const envAbsPath = path.resolve(cwd, options.envPath);
+      const envAbsPath = path.resolve(cwd, options.outputFile);
 
       if (!options.force && (await fsAccess(envAbsPath))) {
         const response = await prompts({

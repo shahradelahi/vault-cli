@@ -85,14 +85,14 @@ Usage: vault pull [options] <secrets-path>
 Pull an environment from Vault
 
 Options:
-  -P, --profile <name>           Name of the profile to use.
-  --endpoint-url <endpoint-url>  Vault endpoint URL
-  --token <vault-token>          Vault token
-  -E, --env-path <env-path>      Path to the environment file
-  -F, --format <format>          Format of the environment file (default: "dotenv")
-  --cwd <cwd>                    Current working directory (default: ".")
-  --force                        Write environment file even if it exists (default: false)
-  -h, --help                     display help for command
+  -P, --profile <name>             Name of the profile to use.
+  --endpoint-url <endpoint-url>    Vault endpoint URL
+  --token <vault-token>            Vault token
+  -O, --output-file <output-path>  Path to write the environment file to
+  -F, --format <format>            Format of the environment file (default: "dotenv")
+  --cwd <cwd>                      Current working directory (default: ".")
+  --force                          Write environment file even if it exists (default: false)
+  -h, --help                       display help for command
 ```
 
 #### Examples
