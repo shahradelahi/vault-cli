@@ -22,3 +22,7 @@ export function isDotenv(data: any): boolean {
     return false;
   }
 }
+
+export function toRecord(data: string): Record<string, string> {
+  return dotenv.parse(data);
+}

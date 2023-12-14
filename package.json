@@ -1,7 +1,7 @@
 {
   "name": "@litehex/vault-cli",
   "description": "CLI for HashiCorp's Vault kv2 engine",
-  "version": "0.1.2-alpha.2",
+  "version": "0.1.2-alpha.4",
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup",
@@ -17,6 +17,7 @@
     "chalk": "^5.3.0",
     "commander": "^11.1.0",
     "dotenv": "^16.3.1",
+    "execa": "^8.0.1",
     "ora": "^7.0.1",
     "prompts": "^2.4.2",
     "undici": "^5.28.0",

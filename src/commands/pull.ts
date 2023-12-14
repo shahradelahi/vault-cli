@@ -90,20 +90,12 @@ export const pull = new Command()
         return;
       }
 
-      const env = Object.entries(secrets.data).reduce(
-        (acc, [key, value]) => {
-          acc[key] = value;
-          return acc;
-        },
-        {} as Record<string, string>
-      );
-
       logger.log('');
       spinner.succeed(`Done.`);
 
       if (options.format === 'shell') {
         logger.log('');
-        for (const [key, value] of Object.entries(env)) {
+        for (const [key, value] of Object.entries(secrets.data)) {
           logger.log(`export ${key}="${value}"`);
         }
 
@@ -114,9 +106,9 @@ export const pull = new Command()
 
       const formattedEnv =
         options.format === 'json'
-          ? JSON.stringify(env, null, 2)
+          ? JSON.stringify(secrets.data, null, 2)
           : options.format === 'dotenv'
-            ? Object.entries(env)
+            ? Object.entries(secrets.data)
                 .map(([key, value]) => `${key}=${value}`)
                 .join('\n')
             : '';
@@ -125,7 +117,7 @@ export const pull = new Command()
         logger.log('');
         console.log(
           `${chalk.bold('Environment variables:')}\n${
-            formattedEnv === '' ? env : formattedEnv.trim()
+            formattedEnv === '' ? secrets.data : formattedEnv.trim()
           }`
         );
         logger.log('');

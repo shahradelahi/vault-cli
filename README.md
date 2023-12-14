@@ -108,6 +108,39 @@ vault pull --profile my-profile secret/my-app --env-path .env
 vault pull --profile my-profile secret/my-app --format shell | grep -e '^export' | source /dev/stdin
 ```
 
+### pipe
+
+This command will pull and pipe secrets from your Vault to another command.
+
+#### Options
+
+```txt
+Usage: vault pipe [options] <secrets-path> [command...]
+
+Pull an environment from Vault and pipe it to a command
+
+Arguments:
+  secrets-path
+  command                        Command to pipe to (default: [])
+
+Options:
+  -P, --profile <name>           Name of the profile to use.
+  --endpoint-url <endpoint-url>  Vault endpoint URL
+  --token <vault-token>          Vault token
+  --cwd <cwd>                    Current working directory (default: ".")
+  -h, --help                     display help for command
+```
+
+#### Examples
+
+```bash
+# Pull a secret from Vault and pipe it to a command
+vault pipe --profile my-profile secret/my-app env | grep -e '^MY_APP_'
+
+# Pull a secret from Vault and pipe it to a node script
+vault pipe --profile my-profile secret/my-app "node -e 'console.log(process.env.MY_APP_SECRET)'"
+```
+
 ### rm
 
 This command will remove a path or some versions of a secret.
@@ -140,6 +173,11 @@ vault rm --profile my-profile secret/my-app
 # Remove a secret version from Vault
 vault rm --profile my-profile secret/my-app 3 4
 ```
+
+### Reporting Issues
+
+If you are having trouble getting something to work with this tool or run into any problems, you can create a
+new issue [GitHub Issues](https://github.com/shahradelahi/vault-cli/issues).
 
 ### License
 
