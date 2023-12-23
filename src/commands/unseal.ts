@@ -31,7 +31,7 @@ export const unseal = new Command()
 
       const credentials = await getCredentialsFromOpts({
         ...options,
-        token: ''
+        token: 'NOT_REQUIRED'
       });
 
       const vc = new Client({
