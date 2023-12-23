@@ -6,9 +6,7 @@ A minimal CLI to access your HashiCorp's Vault secrets from the command line.
 
 ```bash
 npx @litehex/vault-cli --help
-
-# Or use `bunx`:
-
+# Or
 bunx @litehex/vault-cli --help
 ```
 

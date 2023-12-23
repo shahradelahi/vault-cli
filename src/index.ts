@@ -2,7 +2,7 @@
 
 import { Command } from 'commander';
 import { getPackageInfo } from './utils/get-package-info.ts';
-import { push, pull, makeProfile, remove, pipe } from './commands';
+import { makeProfile, pipe, pull, push, remove, seal, unseal } from './commands';
 
 process.on('SIGINT', () => process.exit(0));
 process.on('SIGTERM', () => process.exit(0));
@@ -20,7 +20,9 @@ async function main() {
     .addCommand(pipe)
     .addCommand(push)
     .addCommand(pull)
-    .addCommand(remove);
+    .addCommand(remove)
+    .addCommand(seal)
+    .addCommand(unseal);
 
   program.parse();
 }

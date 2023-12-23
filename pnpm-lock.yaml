@@ -9,8 +9,8 @@ dependencies:
     specifier: ^2.2.5
     version: 2.2.5
   '@litehex/node-vault':
-    specifier: 0.1.0-alpha.10
-    version: 0.1.0-alpha.10
+    specifier: 0.1.0-alpha.11
+    version: 0.1.0-alpha.11
   chalk:
     specifier: ^5.3.0
     version: 5.3.0
@@ -292,8 +292,8 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /@litehex/node-vault@0.1.0-alpha.10:
-    resolution: {integrity: sha512-6GfLxmT6LzfE3+OOutXZ9oCMBMvJq2jz0DIeargDt30wabu9OL2Q8ZOzspoNbYrlnOoPQIV2ielOSFcNxMLxbw==}
+  /@litehex/node-vault@0.1.0-alpha.11:
+    resolution: { integrity: sha512-wUmALIdezCc//+FlEKEKpFQEW3IWBUyiuc2OGkS39+Qetl6Wt13fnsWF1uw+yvzIhTEYcvhejO9hbZoLZlFX6g== }
     dependencies:
       lodash.omit: 4.5.0
       lodash.pick: 4.4.0
