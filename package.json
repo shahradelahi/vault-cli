@@ -10,7 +10,7 @@
     "format": "prettier --write .",
     "prepublishOnly": "pnpm run format:check && pnpm run type-check && pnpm build"
   },
-  "packageManager": "pnpm@8.14.1",
+  "packageManager": "pnpm@8.15.0",
   "dependencies": {
     "@iarna/toml": "^2.2.5",
     "@litehex/node-vault": "0.1.0",
