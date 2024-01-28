@@ -12,21 +12,36 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  check:
+  format:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-
     steps:
       - uses: actions/checkout@v4
+
       - uses: pnpm/action-setup@v2
         with:
           version: 8
+
       - uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: 'pnpm'
 
-      - run: pnpm install
-      - run: pnpm format:check
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run format:check
+
+  type-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'pnpm'
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run type-check

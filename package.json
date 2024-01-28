@@ -5,30 +5,30 @@
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup",
-    "typecheck": "tsc --noEmit",
+    "type-check": "tsc --noEmit",
     "format:check": "prettier --check \"**/*.{ts,md}\"",
     "format": "prettier --write .",
-    "prepublishOnly": "pnpm run format:check && pnpm run typecheck && pnpm run build"
+    "prepublishOnly": "pnpm run format:check && pnpm run type-check && pnpm build"
   },
-  "packageManager": "pnpm@8.11.0",
+  "packageManager": "pnpm@8.14.1",
   "dependencies": {
     "@iarna/toml": "^2.2.5",
-    "@litehex/node-vault": "0.1.0-alpha.11",
+    "@litehex/node-vault": "0.1.0",
     "chalk": "^5.3.0",
     "commander": "^11.1.0",
-    "dotenv": "^16.3.1",
+    "dotenv": "^16.4.1",
     "execa": "^8.0.1",
-    "ora": "^7.0.1",
+    "ora": "^8.0.1",
     "prompts": "^2.4.2",
-    "undici": "^5.28.0",
+    "undici": "^6.5.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/prompts": "^2.4.9",
-    "prettier": "^3.1.0",
+    "prettier": "^3.2.4",
     "tsup": "^8.0.1",
-    "type-fest": "^4.8.2",
-    "typescript": "^5.3.2"
+    "type-fest": "^4.10.1",
+    "typescript": "^5.3.3"
   },
   "license": "GPL-3.0",
   "author": "Shahrad Elahi <shahrad@litehex.com> (https://github.com/shahradelahi)",
