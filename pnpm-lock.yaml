@@ -31,7 +31,7 @@ dependencies:
     version: 2.4.2
   undici:
     specifier: ^6.5.0
-    version: 6.5.0
+    version: 6.6.1
   zod:
     specifier: ^3.22.4
     version: 3.22.4
@@ -298,7 +298,7 @@ packages:
       lodash.omit: 4.5.0
       lodash.pick: 4.4.0
       mustache: 4.2.0
-      undici: 6.5.0
+      undici: 6.6.1
       zod: 3.22.4
     dev: false
 
@@ -1229,8 +1229,8 @@ packages:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
     dev: true
 
-  /undici@6.5.0:
-    resolution: {integrity: sha512-/MUmPb2ptTvp1j7lPvdMSofMdqPxcOhAaKZi4k55sqm6XMeKI3n1dZJ5cnD4gLjpt2l7CIlthR1IXM59xKhpxw==}
+  /undici@6.6.1:
+    resolution: {integrity: sha512-J0GaEp0ztu/grIE2Uq57AbK6TRb+bWbOlxu0POCzhFKA6LKbwSAev+hDQaQcgUUA9CPs8Ky+cauzTHnQrtAQEA==}
     engines: {node: '>=18.0'}
     dependencies:
       '@fastify/busboy': 2.1.0
