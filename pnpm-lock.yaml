@@ -9,17 +9,17 @@ dependencies:
     specifier: ^2.2.5
     version: 2.2.5
   '@litehex/node-vault':
-    specifier: 0.1.0
-    version: 0.1.0
+    specifier: 0.1.1
+    version: 0.1.1
   chalk:
     specifier: ^5.3.0
     version: 5.3.0
   commander:
-    specifier: ^11.1.0
-    version: 11.1.0
+    specifier: ^12.0.0
+    version: 12.0.0
   dotenv:
-    specifier: ^16.4.1
-    version: 16.4.1
+    specifier: ^16.4.5
+    version: 16.4.5
   execa:
     specifier: ^8.0.1
     version: 8.0.1
@@ -30,8 +30,8 @@ dependencies:
     specifier: ^2.4.2
     version: 2.4.2
   undici:
-    specifier: ^6.5.0
-    version: 6.6.1
+    specifier: ^6.6.2
+    version: 6.6.2
   zod:
     specifier: ^3.22.4
     version: 3.22.4
@@ -41,14 +41,14 @@ devDependencies:
     specifier: ^2.4.9
     version: 2.4.9
   prettier:
-    specifier: ^3.2.4
-    version: 3.2.4
+    specifier: ^3.2.5
+    version: 3.2.5
   tsup:
-    specifier: ^8.0.1
-    version: 8.0.1(typescript@5.3.3)
+    specifier: ^8.0.2
+    version: 8.0.2(typescript@5.3.3)
   type-fest:
-    specifier: ^4.10.1
-    version: 4.10.1
+    specifier: ^4.10.3
+    version: 4.10.3
   typescript:
     specifier: ^5.3.3
     version: 5.3.3
@@ -292,13 +292,13 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /@litehex/node-vault@0.1.0:
-    resolution: {integrity: sha512-UbydoaY/HrrPcKmVK3J2cdsdXrrY/Wrzs9OYoEDZcS7Zf9jEb6t/g5/4PXnfdBXzlvlLPxUo5sjAm8Ah0i+A2w==}
+  /@litehex/node-vault@0.1.1:
+    resolution: { integrity: sha512-Q1omUlQhGuJxekuS3EHE92uiLPegheWjwFrGd3auKZgq7ImtSL4ql6qCfNOPKMMP/Gu38jKShOVnIL44FsBIpQ== }
     dependencies:
       lodash.omit: 4.5.0
       lodash.pick: 4.4.0
       mustache: 4.2.0
-      undici: 6.6.1
+      undici: 6.6.2
       zod: 3.22.4
     dev: false
 
@@ -524,9 +524,9 @@ packages:
     engines: {node: '>=6'}
     dev: false
 
-  /commander@11.1.0:
-    resolution: {integrity: sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==}
-    engines: {node: '>=16'}
+  /commander@12.0.0:
+    resolution: { integrity: sha512-MwVNWlYjDTtOjX5PiD7o5pK0UrFU/OYgcJfjjK4RaHZETNtjJqrZa9Y9ds88+A+f+d5lv+561eZ+yCKoS3gbAA== }
+    engines: { node: '>=18' }
     dev: false
 
   /commander@4.1.1:
@@ -565,8 +565,8 @@ packages:
       path-type: 4.0.0
     dev: true
 
-  /dotenv@16.4.1:
-    resolution: {integrity: sha512-CjA3y+Dr3FyFDOAMnxZEGtnW9KBR2M0JvvUtXNW+dYJL5ROWxP9DUHCwgFqpMk0OXCc0ljhaNTr2w/kutYIcHQ==}
+  /dotenv@16.4.5:
+    resolution: { integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg== }
     engines: {node: '>=12'}
     dev: false
 
@@ -987,8 +987,8 @@ packages:
       yaml: 2.3.4
     dev: true
 
-  /prettier@3.2.4:
-    resolution: {integrity: sha512-FWu1oLHKCrtpO1ypU6J0SbK2d9Ckwysq6bHj/uaCP26DxrPpppCLQRGVuqAxSTvhF00AcvDRyYrLNW7ocBhFFQ==}
+  /prettier@3.2.5:
+    resolution: { integrity: sha512-3/GWa9aOC0YeD7LUfvOG2NiDyhOWRvt1k+rcKhOuYnMY24iiCphgneUfJDyFXd6rZCAnuLBv6UeAULtrhT/F4A== }
     engines: {node: '>=14'}
     hasBin: true
     dev: true
@@ -1175,8 +1175,8 @@ packages:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: true
 
-  /tsup@8.0.1(typescript@5.3.3):
-    resolution: {integrity: sha512-hvW7gUSG96j53ZTSlT4j/KL0q1Q2l6TqGBFc6/mu/L46IoNWqLLUzLRLP1R8Q7xrJTmkDxxDoojV5uCVs1sVOg==}
+  /tsup@8.0.2(typescript@5.3.3):
+    resolution: { integrity: sha512-NY8xtQXdH7hDUAZwcQdY/Vzlw9johQsaqf7iwZ6g1DOUlFYQ5/AtVAjTvihhEyeRlGo4dLRVHtrRaL35M1daqQ== }
     engines: {node: '>=18'}
     hasBin: true
     peerDependencies:
@@ -1214,8 +1214,8 @@ packages:
       - ts-node
     dev: true
 
-  /type-fest@4.10.1:
-    resolution: {integrity: sha512-7ZnJYTp6uc04uYRISWtiX3DSKB/fxNQT0B5o1OUeCqiQiwF+JC9+rJiZIDrPrNCLLuTqyQmh4VdQqh/ZOkv9MQ==}
+  /type-fest@4.10.3:
+    resolution: { integrity: sha512-JLXyjizi072smKGGcZiAJDCNweT8J+AuRxmPZ1aG7TERg4ijx9REl8CNhbr36RV4qXqL1gO1FF9HL8OkVmmrsA== }
     engines: {node: '>=16'}
     dev: true
 
@@ -1229,8 +1229,8 @@ packages:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
     dev: true
 
-  /undici@6.6.1:
-    resolution: {integrity: sha512-J0GaEp0ztu/grIE2Uq57AbK6TRb+bWbOlxu0POCzhFKA6LKbwSAev+hDQaQcgUUA9CPs8Ky+cauzTHnQrtAQEA==}
+  /undici@6.6.2:
+    resolution: { integrity: sha512-vSqvUE5skSxQJ5sztTZ/CdeJb1Wq0Hf44hlYMciqHghvz+K88U0l7D6u1VsndoFgskDcnU+nG3gYmMzJVzd9Qg== }
     engines: {node: '>=18.0'}
     dependencies:
       '@fastify/busboy': 2.1.0
