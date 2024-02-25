@@ -1,7 +1,7 @@
 {
   "name": "@litehex/vault-cli",
   "description": "CLI for HashiCorp's Vault KV2 engine",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup",
