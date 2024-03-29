@@ -48,7 +48,7 @@ devDependencies:
     version: 8.0.2(typescript@5.3.3)
   type-fest:
     specifier: ^4.10.3
-    version: 4.10.3
+    version: 4.14.0
   typescript:
     specifier: ^5.3.3
     version: 5.3.3
@@ -1215,8 +1215,8 @@ packages:
       - ts-node
     dev: true
 
-  /type-fest@4.10.3:
-    resolution: {integrity: sha512-JLXyjizi072smKGGcZiAJDCNweT8J+AuRxmPZ1aG7TERg4ijx9REl8CNhbr36RV4qXqL1gO1FF9HL8OkVmmrsA==}
+  /type-fest@4.14.0:
+    resolution: {integrity: sha512-on5/Cw89wwqGZQu+yWO0gGMGu8VNxsaW9SB2HE8yJjllEk7IDTwnSN1dUVldYILhYPN5HzD7WAaw2cc/jBfn0Q==}
     engines: {node: '>=16'}
     dev: true
 
