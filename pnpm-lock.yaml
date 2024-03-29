@@ -9,8 +9,8 @@ dependencies:
     specifier: ^2.2.5
     version: 2.2.5
   '@litehex/node-vault':
-    specifier: 0.2.0-canary.2
-    version: 0.2.0-canary.2
+    specifier: 0.2.0
+    version: 0.2.0
   chalk:
     specifier: ^5.3.0
     version: 5.3.0
@@ -292,9 +292,9 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /@litehex/node-vault@0.2.0-canary.2:
-    resolution: { integrity: sha512-ei13ErCKDKjlZ2sVoRuxo6rIY+py8dTj4wvLDHBHWG5xGFR58lYdX2MNDAE32Hpio6wHUTpJFN4eems8TKJ2ZQ== }
-    engines: { node: '>=18.0.0' }
+  /@litehex/node-vault@0.2.0:
+    resolution: {integrity: sha512-/QQV/3hzMcLYuU+SJ8RaxTfbFkyQlpJ3TLlhi78X1FI03XWTS1vhh2j8tO19f/o5eczfuQ1ebbFfVsz4xda6ww==}
+    engines: {node: '>=18.0.0'}
     dependencies:
       lodash.omit: 4.5.0
       lodash.pick: 4.4.0
@@ -526,8 +526,8 @@ packages:
     dev: false
 
   /commander@12.0.0:
-    resolution: { integrity: sha512-MwVNWlYjDTtOjX5PiD7o5pK0UrFU/OYgcJfjjK4RaHZETNtjJqrZa9Y9ds88+A+f+d5lv+561eZ+yCKoS3gbAA== }
-    engines: { node: '>=18' }
+    resolution: {integrity: sha512-MwVNWlYjDTtOjX5PiD7o5pK0UrFU/OYgcJfjjK4RaHZETNtjJqrZa9Y9ds88+A+f+d5lv+561eZ+yCKoS3gbAA==}
+    engines: {node: '>=18'}
     dev: false
 
   /commander@4.1.1:
@@ -567,7 +567,7 @@ packages:
     dev: true
 
   /dotenv@16.4.5:
-    resolution: { integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg== }
+    resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
     engines: {node: '>=12'}
     dev: false
 
@@ -989,7 +989,7 @@ packages:
     dev: true
 
   /prettier@3.2.5:
-    resolution: { integrity: sha512-3/GWa9aOC0YeD7LUfvOG2NiDyhOWRvt1k+rcKhOuYnMY24iiCphgneUfJDyFXd6rZCAnuLBv6UeAULtrhT/F4A== }
+    resolution: {integrity: sha512-3/GWa9aOC0YeD7LUfvOG2NiDyhOWRvt1k+rcKhOuYnMY24iiCphgneUfJDyFXd6rZCAnuLBv6UeAULtrhT/F4A==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
@@ -1177,7 +1177,7 @@ packages:
     dev: true
 
   /tsup@8.0.2(typescript@5.3.3):
-    resolution: { integrity: sha512-NY8xtQXdH7hDUAZwcQdY/Vzlw9johQsaqf7iwZ6g1DOUlFYQ5/AtVAjTvihhEyeRlGo4dLRVHtrRaL35M1daqQ== }
+    resolution: {integrity: sha512-NY8xtQXdH7hDUAZwcQdY/Vzlw9johQsaqf7iwZ6g1DOUlFYQ5/AtVAjTvihhEyeRlGo4dLRVHtrRaL35M1daqQ==}
     engines: {node: '>=18'}
     hasBin: true
     peerDependencies:
@@ -1216,7 +1216,7 @@ packages:
     dev: true
 
   /type-fest@4.10.3:
-    resolution: { integrity: sha512-JLXyjizi072smKGGcZiAJDCNweT8J+AuRxmPZ1aG7TERg4ijx9REl8CNhbr36RV4qXqL1gO1FF9HL8OkVmmrsA== }
+    resolution: {integrity: sha512-JLXyjizi072smKGGcZiAJDCNweT8J+AuRxmPZ1aG7TERg4ijx9REl8CNhbr36RV4qXqL1gO1FF9HL8OkVmmrsA==}
     engines: {node: '>=16'}
     dev: true
 
@@ -1231,12 +1231,12 @@ packages:
     dev: true
 
   /undici@6.10.2:
-    resolution: { integrity: sha512-HcVuBy7ACaDejIMdwCzAvO22OsiE6ir6ziTIr9kAE0vB+PheVe29ZvRN8p7FXCO2uZHTjEoUs5bPiFpuc/hwwQ== }
-    engines: { node: '>=18.0' }
+    resolution: {integrity: sha512-HcVuBy7ACaDejIMdwCzAvO22OsiE6ir6ziTIr9kAE0vB+PheVe29ZvRN8p7FXCO2uZHTjEoUs5bPiFpuc/hwwQ==}
+    engines: {node: '>=18.0'}
     dev: false
 
   /undici@6.6.2:
-    resolution: { integrity: sha512-vSqvUE5skSxQJ5sztTZ/CdeJb1Wq0Hf44hlYMciqHghvz+K88U0l7D6u1VsndoFgskDcnU+nG3gYmMzJVzd9Qg== }
+    resolution: {integrity: sha512-vSqvUE5skSxQJ5sztTZ/CdeJb1Wq0Hf44hlYMciqHghvz+K88U0l7D6u1VsndoFgskDcnU+nG3gYmMzJVzd9Qg==}
     engines: {node: '>=18.0'}
     dependencies:
       '@fastify/busboy': 2.1.0
@@ -1271,8 +1271,8 @@ packages:
     dev: true
 
   /zod-request@0.2.2:
-    resolution: { integrity: sha512-pL9/t+YflOEVpUY0izbsYdkEk8FsQlO5PPLJiinx7m6ZnwzXu/eeLboIkVMghpdMKyaToxiSiy9hSl4fKH/plg== }
-    engines: { node: '>=18.0.0' }
+    resolution: {integrity: sha512-pL9/t+YflOEVpUY0izbsYdkEk8FsQlO5PPLJiinx7m6ZnwzXu/eeLboIkVMghpdMKyaToxiSiy9hSl4fKH/plg==}
+    engines: {node: '>=18.0.0'}
     dependencies:
       mustache: 4.2.0
       zod: 3.22.4
