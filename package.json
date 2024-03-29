@@ -2,6 +2,11 @@
   "name": "@litehex/vault-cli",
   "description": "CLI for HashiCorp's Vault KV2 engine",
   "version": "0.1.6",
+  "type": "module",
+  "bin": "./dist/cli.js",
+  "files": [
+    "dist/**"
+  ],
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup",
@@ -13,7 +18,7 @@
   "packageManager": "pnpm@8.15.0",
   "dependencies": {
     "@iarna/toml": "^2.2.5",
-    "@litehex/node-vault": "0.1.1",
+    "@litehex/node-vault": "0.2.0-canary.2",
     "chalk": "^5.3.0",
     "commander": "^12.0.0",
     "dotenv": "^16.4.5",
@@ -36,20 +41,14 @@
     "type": "git",
     "url": "https://github.com/shahradelahi/vault-cli.git"
   },
-  "type": "module",
-  "exports": "./dist/index.js",
-  "bin": "./dist/index.js",
-  "files": [
-    "dist"
-  ],
   "publishConfig": {
     "access": "public"
   },
   "keywords": [
     "vault",
     "cli",
+    "kv-v2",
     "hashicorp",
-    "secrets",
-    "litehex"
+    "secrets"
   ]
 }

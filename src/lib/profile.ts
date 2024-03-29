@@ -1,6 +1,6 @@
 import { Profile } from '@/typeings.ts';
 import toml from '@iarna/toml';
-import { promises } from 'fs';
+import { promises } from 'node:fs';
 import { CREDENTIALS_PATH, getCredentials } from '@/lib/credentials.ts';
 
 export async function getProfile(name: string): Promise<Profile | undefined> {

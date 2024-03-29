@@ -2,8 +2,8 @@ import { defineConfig } from 'tsup';
 
 export default defineConfig({
   clean: true,
-  dts: true,
-  entry: ['src/index.ts'],
+  minify: true,
+  entry: ['src/cli.ts'],
   format: ['esm'],
   target: 'esnext',
   outDir: 'dist'

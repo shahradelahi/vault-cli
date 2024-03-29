@@ -1,6 +1,13 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
+    "lib": [
+      "ESNext"
+    ],
+    "module": "esnext",
+    "target": "esnext",
+    "moduleResolution": "node",
+    "moduleDetection": "force",
     "composite": false,
     "declaration": true,
     "declarationMap": true,
@@ -9,8 +16,6 @@
     "allowImportingTsExtensions": true,
     "inlineSources": false,
     "isolatedModules": true,
-    "moduleResolution": "node",
-    "module": "ESNext",
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "preserveWatchOutput": true,

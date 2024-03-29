@@ -1,14 +1,13 @@
 import path from 'node:path';
 import { fsAccess } from '@/utils/fs-access.ts';
-import { promises } from 'fs';
+import { promises } from 'node:fs';
 import { Profile } from '@/typeings.ts';
 import toml from '@iarna/toml';
+import { homedir } from 'node:os';
 
-export const BASE_PATH = path.resolve(
-  path.join(path.resolve(process.env.HOME || process.env.USERPROFILE || '.'), '.vault')
-);
+export const BASE_PATH = path.resolve(homedir(), '.vault');
 
-export const CREDENTIALS_PATH = path.resolve(path.join(BASE_PATH, 'credentials'));
+export const CREDENTIALS_PATH = path.resolve(BASE_PATH, 'credentials');
 
 export async function ensureCredentialsPaths(): Promise<void> {
   if (!(await fsAccess(BASE_PATH))) {

@@ -1,16 +1,16 @@
 import path from 'node:path';
 import { Command } from 'commander';
 import logger from '@/logger.ts';
-import { Client } from '@litehex/node-vault';
 import { handleError } from '@/utils/handle-error.ts';
 import { z } from 'zod';
 import prompts from 'prompts';
 import ora from 'ora';
 import chalk from 'chalk';
 import { doesSecretPathExist, readKV2Path } from '@/lib/vault.ts';
-import { getCredentialsFromOpts } from '@/lib/helpers.ts';
+import { getUnsealedClient, resolveAccessiblePath } from '@/lib/helpers.ts';
 import { fsAccess } from '@/utils/fs-access.ts';
 import { promises } from 'node:fs';
+import { VaultError } from '@litehex/node-vault';
 
 export const pull = new Command()
   .command('pull <secrets-path>')
@@ -42,28 +42,9 @@ export const pull = new Command()
           vaultPath
         });
 
-      const cwd = path.resolve(options.cwd);
+      const cwd = await resolveAccessiblePath(options.cwd);
 
-      if (!(await fsAccess(cwd))) {
-        logger.error(`The path ${cwd} does not exist. Please try again.`);
-        process.exitCode = 1;
-        return;
-      }
-
-      const credentials = await getCredentialsFromOpts(options);
-
-      const vc = new Client({
-        endpoint: credentials.endpointUrl,
-        token: credentials.token
-      });
-      const kv2 = vc.kv2();
-
-      const status = await vc.status();
-      if (status.sealed) {
-        logger.error('Vault is sealed. Please unseal Vault and try again.');
-        process.exitCode = 1;
-        return;
-      }
+      const vc = await getUnsealedClient(options);
 
       if (!(await doesSecretPathExist(vc, vaultPath))) {
         logger.error(`The path ${vaultPath} does not exist. Please try again.`);
@@ -74,28 +55,26 @@ export const pull = new Command()
       const spinner = ora('Pulling secrets from Vault').start();
 
       const { mountPath, path: secretPath } = readKV2Path(vaultPath);
-      const { data: secrets } = await kv2.read({
+      const read = await vc.kv2.read({
         mountPath,
         path: secretPath
       });
+      if ('errors' in read) {
+        return handleError(new VaultError(read.errors));
+      }
+
+      const { data: secrets } = read.data;
       if (!secrets) {
         logger.error(`No secrets found at ${vaultPath}. Please try again.`);
         process.exitCode = 1;
         return;
       }
 
-      if (!secrets.data) {
-        logger.error(`No secrets found at ${vaultPath}. Please try again.`);
-        process.exitCode = 1;
-        return;
-      }
-
-      logger.log('');
-      spinner.succeed(`Done.`);
+      spinner.succeed(`Pulled secrets from Vault. (${Object.keys(secrets).length} secrets)`);
 
       if (options.format === 'shell') {
         logger.log('');
-        for (const [key, value] of Object.entries(secrets.data)) {
+        for (const [key, value] of Object.entries(secrets)) {
           logger.log(`export ${key}="${value}"`);
         }
 
@@ -106,9 +85,9 @@ export const pull = new Command()
 
       const formattedEnv =
         options.format === 'json'
-          ? JSON.stringify(secrets.data, null, 2)
+          ? JSON.stringify(secrets, null, 2)
           : options.format === 'dotenv'
-            ? Object.entries(secrets.data)
+            ? Object.entries(secrets)
                 .map(([key, value]) => `${key}=${value}`)
                 .join('\n')
             : '';
@@ -117,7 +96,7 @@ export const pull = new Command()
         logger.log('');
         console.log(
           `${chalk.bold('Environment variables:')}\n${
-            formattedEnv === '' ? secrets.data : formattedEnv.trim()
+            formattedEnv === '' ? secrets : formattedEnv.trim()
           }`
         );
         logger.log('');

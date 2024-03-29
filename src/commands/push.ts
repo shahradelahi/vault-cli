@@ -1,7 +1,6 @@
 import path from 'node:path';
 import { Command } from 'commander';
 import logger from '@/logger.ts';
-import { Client } from '@litehex/node-vault';
 import { handleError } from '@/utils/handle-error.ts';
 import { z } from 'zod';
 import prompts from 'prompts';
@@ -9,7 +8,7 @@ import dotenv from 'dotenv';
 import ora from 'ora';
 import chalk from 'chalk';
 import { doesSecretPathExist, readKV2Path } from '@/lib/vault.ts';
-import { getCredentialsFromOpts } from '@/lib/helpers.ts';
+import { getUnsealedClient } from '@/lib/helpers.ts';
 import { fsAccess } from '@/utils/fs-access.ts';
 
 const pushOptionsSchema = z.object({
@@ -56,20 +55,7 @@ export const push = new Command()
         return;
       }
 
-      const credentials = await getCredentialsFromOpts(options);
-
-      const vc = new Client({
-        endpoint: credentials.endpointUrl,
-        token: credentials.token
-      });
-      const kv2 = vc.kv2();
-
-      const status = await vc.status();
-      if (status.sealed) {
-        logger.error('Vault is sealed. Please unseal Vault and try again.');
-        process.exitCode = 1;
-        return;
-      }
+      const vc = await getUnsealedClient(options);
 
       if (!options.force && (await doesSecretPathExist(vc, vaultPath))) {
         const { overwrite } = await prompts({
@@ -86,20 +72,14 @@ export const push = new Command()
         }
       }
 
-      const env = await dotenv.config({ path: envFile });
-      const secrets = Object.entries(env.parsed || {}).reduce(
-        (acc, [key, value]) => {
-          acc[key] = value;
-          return acc;
-        },
-        {} as Record<string, string>
-      );
+      const env = dotenv.config({ path: envFile });
+      const secrets = env.parsed as Record<string, string>;
 
       logger.log('');
       const writeProgress = ora(`Writing secrets to Vault...`).start();
 
       const { mountPath, path: secretPath } = readKV2Path(vaultPath);
-      await kv2.write({
+      await vc.kv2.write({
         mountPath,
         path: secretPath,
         data: secrets

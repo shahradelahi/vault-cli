@@ -2,12 +2,11 @@ import { Command } from 'commander';
 import logger from '@/logger.ts';
 import { handleError } from '@/utils/handle-error.ts';
 import { z } from 'zod';
-import path from 'node:path';
-import { fsAccess } from '@/utils/fs-access.ts';
-import { getUnsealedClient } from '@/lib/helpers.ts';
+import { getUnsealedClient, resolveAccessiblePath } from '@/lib/helpers.ts';
 import { doesSecretPathExist, readKV2Path } from '@/lib/vault.ts';
 import ora from 'ora';
 import { execaCommand } from 'execa';
+import { VaultError } from '@litehex/node-vault';
 
 export const pipe = new Command()
   .command('pipe <secrets-path>')
@@ -36,16 +35,9 @@ export const pipe = new Command()
           ...opts
         });
 
-      const cwd = path.resolve(options.cwd);
-
-      if (!(await fsAccess(cwd))) {
-        logger.error(`The path ${cwd} does not exist. Please try again.`);
-        process.exitCode = 1;
-        return;
-      }
+      const cwd = await resolveAccessiblePath(options.cwd);
 
       const vc = await getUnsealedClient(options);
-      const kv2 = vc.kv2();
 
       if (!(await doesSecretPathExist(vc, vaultPath))) {
         logger.error(`The path ${vaultPath} does not exist. Please try again.`);
@@ -56,10 +48,15 @@ export const pipe = new Command()
       const spinner = ora('Pulling secrets from Vault').start();
 
       const { mountPath, path: secretPath } = readKV2Path(vaultPath);
-      const { data: secrets } = await kv2.read({
+      const read = await vc.kv2.read({
         mountPath,
         path: secretPath
       });
+      if ('errors' in read) {
+        return handleError(new VaultError(read.errors));
+      }
+
+      const { data: secrets } = read.data;
       if (!secrets) {
         logger.error(`No secrets found at ${vaultPath}. Please try again.`);
         process.exitCode = 1;
@@ -73,7 +70,7 @@ export const pipe = new Command()
       execaCommand(options.command.join(' '), {
         shell: true,
         cwd,
-        env: secrets.data,
+        env: secrets,
         stdio: 'inherit',
         cleanup: true
       });

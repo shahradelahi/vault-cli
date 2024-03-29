@@ -1,13 +1,9 @@
 import { z } from 'zod';
 import { Command } from 'commander';
 import logger from '@/logger.ts';
-import path from 'node:path';
-import { fsAccess } from '@/utils/fs-access.ts';
-import { getCredentialsFromOpts } from '@/lib/helpers.ts';
-import { Client } from '@litehex/node-vault';
+import { getUnsealedClient } from '@/lib/helpers.ts';
 import { doesSecretPathExist } from '@/lib/vault.ts';
 import prompts from 'prompts';
-import dotenv from 'dotenv';
 import ora from 'ora';
 import chalk from 'chalk';
 import { handleError } from '@/utils/handle-error.ts';
@@ -39,20 +35,7 @@ export const remove = new Command()
         vaultPath
       });
 
-      const credentials = await getCredentialsFromOpts(options);
-
-      const vc = new Client({
-        endpoint: credentials.endpointUrl,
-        token: credentials.token
-      });
-      const kv2 = vc.kv2();
-
-      const status = await vc.status();
-      if (status.sealed) {
-        logger.error('Vault is sealed. Please unseal Vault and try again.');
-        process.exitCode = 1;
-        return;
-      }
+      const vc = await getUnsealedClient(options);
 
       if (!(await doesSecretPathExist(vc, vaultPath))) {
         logger.warn(`The path ${vaultPath} not exist. Nothing to remove.`);
@@ -92,13 +75,13 @@ export const remove = new Command()
           }
         }
 
-        await kv2.delete({
+        await vc.kv2.delete({
           mountPath: 'secret',
           path: vaultPath,
           versions: options.versions.filter((v) => !isNaN(parseInt(v))).map((v) => parseInt(v))
         });
       } else {
-        await kv2.deleteMetadata({
+        await vc.kv2.deleteMetadata({
           mountPath: 'secret',
           path: vaultPath
         });

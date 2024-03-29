@@ -2,7 +2,7 @@ import { Command } from 'commander';
 import { getCredentialsFromOpts } from '@/lib/helpers.ts';
 import { z } from 'zod';
 import logger from '@/logger.ts';
-import { Client } from '@litehex/node-vault';
+import { Client, VaultError } from '@litehex/node-vault';
 import { handleError } from '@/utils/handle-error.ts';
 import ora from 'ora';
 
@@ -29,7 +29,11 @@ export const seal = new Command()
         token: credentials.token
       });
 
-      const status = await vc.status();
+      const status = await vc.sealStatus();
+      if ('errors' in status) {
+        return handleError(new VaultError(status.errors));
+      }
+
       if (status.sealed) {
         logger.info('Vault is already sealed.');
         logger.log('');

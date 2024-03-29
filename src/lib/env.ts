@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import dotenv from 'dotenv';
 import { isJson } from '@/utils/is-json.ts';
-import { promises } from 'fs';
+import { promises } from 'node:fs';
 
 export const EnvTypeSchema = z.enum(['dotenv', 'json']);
 export type EnvType = z.infer<typeof EnvTypeSchema>;

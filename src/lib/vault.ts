@@ -3,8 +3,7 @@ import { Client } from '@litehex/node-vault';
 export async function doesSecretPathExist(vc: Client, path: string): Promise<boolean> {
   try {
     const { mountPath, path: secretPath } = readKV2Path(path);
-    const kv2 = vc.kv2();
-    await kv2.read({
+    await vc.kv2.read({
       mountPath,
       path: secretPath
     });

@@ -1,4 +1,4 @@
-import { promises } from 'fs';
+import { promises } from 'node:fs';
 
 export async function fsAccess(path: string): Promise<boolean> {
   try {
