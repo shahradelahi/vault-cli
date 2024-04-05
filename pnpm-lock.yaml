@@ -9,8 +9,8 @@ dependencies:
     specifier: ^2.2.5
     version: 2.2.5
   '@litehex/node-vault':
-    specifier: 0.2.0
-    version: 0.2.0
+    specifier: 0.2.1
+    version: 0.2.1
   chalk:
     specifier: ^5.3.0
     version: 5.3.0
@@ -292,13 +292,13 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /@litehex/node-vault@0.2.0:
-    resolution: {integrity: sha512-/QQV/3hzMcLYuU+SJ8RaxTfbFkyQlpJ3TLlhi78X1FI03XWTS1vhh2j8tO19f/o5eczfuQ1ebbFfVsz4xda6ww==}
+  /@litehex/node-vault@0.2.1:
+    resolution: {integrity: sha512-PjKcYFU2Rhzj9KeU42fBuFnx/8DqAmQeOkKFfQbgJtDBF9vnqQzwosS9ZGHfo17dul86652eYqOWEWj+FIMZNg==}
     engines: {node: '>=18.0.0'}
     dependencies:
       lodash.omit: 4.5.0
       lodash.pick: 4.4.0
-      undici: 6.10.2
+      undici: 6.11.1
       zod: 3.22.4
       zod-request: 0.2.2
     dev: false
@@ -1230,8 +1230,8 @@ packages:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
     dev: true
 
-  /undici@6.10.2:
-    resolution: {integrity: sha512-HcVuBy7ACaDejIMdwCzAvO22OsiE6ir6ziTIr9kAE0vB+PheVe29ZvRN8p7FXCO2uZHTjEoUs5bPiFpuc/hwwQ==}
+  /undici@6.11.1:
+    resolution: {integrity: sha512-KyhzaLJnV1qa3BSHdj4AZ2ndqI0QWPxYzaIOio0WzcEJB9gvuysprJSLtpvc2D9mhR9jPDUk7xlJlZbH2KR5iw==}
     engines: {node: '>=18.0'}
     dev: false
 
