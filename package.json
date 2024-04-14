@@ -1,7 +1,7 @@
 {
   "name": "kvault",
   "description": "CLI for HashiCorp's Vault Key/Value V2 engine",
-  "version": "0.2.0-canary.0",
+  "version": "0.1.0",
   "type": "module",
   "bin": {
     "kvault": "dist/cli.js"
