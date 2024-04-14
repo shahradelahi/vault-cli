@@ -1,9 +1,11 @@
 {
-  "name": "@litehex/vault-cli",
-  "description": "CLI for HashiCorp's Vault KV2 engine",
+  "name": "kvault",
+  "description": "CLI for HashiCorp's Vault Key/Value V2 engine",
   "version": "0.2.0-canary.0",
   "type": "module",
-  "bin": "./dist/cli.js",
+  "bin": {
+    "kvault": "dist/cli.js"
+  },
   "files": [
     "dist/**"
   ],
