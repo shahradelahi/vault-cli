@@ -8,7 +8,7 @@ import dotenv from 'dotenv';
 import ora from 'ora';
 import chalk from 'chalk';
 import { doesSecretPathExist, readKV2Path } from '@/lib/vault.ts';
-import { getUnsealedClient } from '@/lib/helpers.ts';
+import { getUnsealedClient, resolveAccessiblePath } from '@/lib/helpers.ts';
 import { fsAccess } from '@/utils/fs-access.ts';
 
 const pushOptionsSchema = z.object({
@@ -39,21 +39,8 @@ export const push = new Command()
         vaultPath
       });
 
-      const cwd = path.resolve(options.cwd);
-
-      if (!(await fsAccess(cwd))) {
-        logger.error(`The path ${cwd} does not exist. Please try again.`);
-        process.exitCode = 1;
-        return;
-      }
-
-      const envFile = path.resolve(cwd, envPath);
-
-      if (!(await fsAccess(envFile))) {
-        logger.error(`The path ${envFile} does not exist. Please try again.`);
-        process.exitCode = 1;
-        return;
-      }
+      const cwd = await resolveAccessiblePath(options.cwd);
+      const envFile = await resolveAccessiblePath(envPath);
 
       const vc = await getUnsealedClient(options);
 

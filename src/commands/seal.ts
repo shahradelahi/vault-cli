@@ -37,6 +37,7 @@ export const seal = new Command()
       if (status.sealed) {
         logger.info('Vault is already sealed.');
         logger.log('');
+        process.exitCode = 0;
         return;
       }
 

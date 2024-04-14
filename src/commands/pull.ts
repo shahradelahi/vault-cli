@@ -11,6 +11,7 @@ import { getUnsealedClient, resolveAccessiblePath } from '@/lib/helpers.ts';
 import { fsAccess } from '@/utils/fs-access.ts';
 import { promises } from 'node:fs';
 import { VaultError } from '@litehex/node-vault';
+import { EnvType } from '@/lib/env.ts';
 
 export const pull = new Command()
   .command('pull <secrets-path>')
@@ -47,7 +48,7 @@ export const pull = new Command()
       const vc = await getUnsealedClient(options);
 
       if (!(await doesSecretPathExist(vc, vaultPath))) {
-        logger.error(`The path ${vaultPath} does not exist. Please try again.`);
+        logger.error(`The path ${vaultPath} does not exist.`);
         process.exitCode = 1;
         return;
       }
@@ -65,7 +66,7 @@ export const pull = new Command()
 
       const { data: secrets } = read.data;
       if (!secrets) {
-        logger.error(`No secrets found at ${vaultPath}. Please try again.`);
+        logger.error(`No secrets found at ${vaultPath}.`);
         process.exitCode = 1;
         return;
       }
@@ -83,14 +84,7 @@ export const pull = new Command()
         return;
       }
 
-      const formattedEnv =
-        options.format === 'json'
-          ? JSON.stringify(secrets, null, 2)
-          : options.format === 'dotenv'
-            ? Object.entries(secrets)
-                .map(([key, value]) => `${key}=${value}`)
-                .join('\n')
-            : '';
+      const formattedEnv = formatEnv(options.format, secrets);
 
       if (!options.outputFile) {
         logger.log('');
@@ -136,3 +130,20 @@ export const pull = new Command()
       handleError(e);
     }
   });
+
+function formatEnv(type: EnvType, env: Record<string, string>) {
+  if (type === 'json') {
+    return JSON.stringify(env, null, 2);
+  }
+  if (type === 'dotenv') {
+    return Object.entries(env)
+      .map(([key, value]) => `${key}=${value}`)
+      .join('\n');
+  }
+  if (type === 'shell') {
+    return Object.entries(env)
+      .map(([key, value]) => `export ${key}="${value}"`)
+      .join('\n');
+  }
+  throw new Error(`Invalid format ${type}`);
+}

@@ -55,7 +55,7 @@ export async function resolveAccessiblePath(p: string): Promise<string> {
 
   const accessible = await fsAccess(moiPath);
   if (!accessible) {
-    throw new Error(`The path ${p} does not exist. Please try again.`);
+    throw new Error(`The path ${chalk.bold(p)} does not exist.`);
   }
 
   return moiPath;

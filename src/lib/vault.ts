@@ -3,11 +3,11 @@ import { Client } from '@litehex/node-vault';
 export async function doesSecretPathExist(vc: Client, path: string): Promise<boolean> {
   try {
     const { mountPath, path: secretPath } = readKV2Path(path);
-    await vc.kv2.read({
+    const res = await vc.kv2.read({
       mountPath,
       path: secretPath
     });
-    return true;
+    return !('errors' in res);
   } catch (e) {
     return false;
   }
@@ -18,14 +18,13 @@ export function readKV2Path(path: string): {
   path: string;
 } {
   if (!path.includes('/')) {
-    throw new Error('Given path is not a valid KV2 path');
+    throw new Error('Path is not a valid KV2 path. Got: ' + path);
   }
 
-  const [mountPath, ...rest] = path.split('/');
-  const _path = rest.join('/');
+  const [ mountPath, ...rest ] = path.split('/').filter((p) => p.length > 0);
 
   return {
     mountPath,
-    path: _path
+    path: rest.join('/')
   };
 }

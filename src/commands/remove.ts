@@ -69,9 +69,7 @@ export const remove = new Command()
         for (const version of options.versions) {
           if (isNaN(parseInt(version))) {
             spinner.fail();
-            logger.error(`Invalid version number: ${version}`);
-            process.exitCode = 1;
-            return;
+            return handleError(`Invalid version number: ${version}`);
           }
         }
 
