@@ -1,20 +1,35 @@
 # Vault CLI
 
-A minimal CLI to access your HashiCorp's Vault secrets from the command line.
+[![npm](https://img.shields.io/npm/v/kvault)](https://www.npmjs.com/package/kvault)
+[![install size](https://packagephobia.com/badge?p=kvault)](https://packagephobia.com/result?p=kvault)
+
+> A CLI to access your HashiCorp's Vault Key/Value V2 secrets from the command line.
 
 ### Usage
 
 ```bash
-npx @litehex/vault-cli --help
+npx kvault --help
 # Or
-bunx @litehex/vault-cli --help
+bunx kvault --help
 ```
 
 #### Make it global
 
 ```bash
-npm i -g @litehex/vault-cli
+npm install --global kvault
 ```
+
+### Table of Contents
+
+- [Install](#make-it-global)
+- [Usage](#usage)
+- Commands
+  - [Make Profile](#make-profile)
+  - [Push](#push)
+  - [Pull](#pull)
+  - [Remove](#rm)
+  - [Pipe](#pipe)
+- [Reporting Issues](#reporting-issues)
 
 ### make-profile
 
@@ -23,7 +38,7 @@ This command will create a profile in your home directory. It will be used to st
 #### Options
 
 ```txt
-Usage: vault make-profile [options] <name>
+Usage: kvault make-profile [options] <name>
 
 Create a new vault profile
 
@@ -34,11 +49,11 @@ Options:
   -h, --help                     display help for command
 ```
 
-#### Examples
+###### Examples
 
 ```bash
 # Create a new profile
-vault make-profile my-profile --endpoint-url https://vault.example.com --token my-token
+kvault make-profile my-profile --endpoint-url https://vault.example.com --token my-token
 ```
 
 ### push
@@ -48,7 +63,7 @@ This command will push a secret to your Vault.
 #### Options
 
 ```txt
-Usage: vault push [options] <env-file> <secrets-path>
+Usage: kvault push [options] <env-file> <secrets-path>
 
 Push an environment to Vault
 
@@ -61,14 +76,14 @@ Options:
   -h, --help                     display help for command
 ```
 
-#### Examples
+###### Examples
 
 ```bash
 # Push a .env.local file to Vault
-vault push --profile my-profile .env.local secret/my-app
+kvault push --profile my-profile .env.local secret/my-app
 
 # Use credentials instead of a profile
-vault push --endpoint-url https://vault.example.com --token my-token .env.local secret/my-app
+kvault push --endpoint-url https://vault.example.com --token my-token .env.local secret/my-app
 ```
 
 ### pull
@@ -78,7 +93,7 @@ This command will pull a secret from your Vault.
 #### Options
 
 ```txt
-Usage: vault pull [options] <secrets-path>
+Usage: kvault pull [options] <secrets-path>
 
 Pull an environment from Vault
 
@@ -93,17 +108,17 @@ Options:
   -h, --help                       display help for command
 ```
 
-#### Examples
+###### Examples
 
 ```bash
 # Pull a secret from Vault
-vault pull --profile my-profile secret/my-app
+kvault pull --profile my-profile secret/my-app
 
 # Pull a secret from Vault and save it to a .env file
-vault pull --profile my-profile secret/my-app --env-path .env
+kvault pull --profile my-profile secret/my-app --env-path .env
 
 # Pull a secret from Vault and add them to shell environment
-vault pull --profile my-profile secret/my-app --format shell | grep -e '^export' | source /dev/stdin
+kvault pull --profile my-profile secret/my-app --format shell | grep -e '^export' | source /dev/stdin
 ```
 
 ### pipe
@@ -113,7 +128,7 @@ This command will pull and pipe secrets from your Vault to another command.
 #### Options
 
 ```txt
-Usage: vault pipe [options] <secrets-path> [command...]
+Usage: kvault pipe [options] <secrets-path> [command...]
 
 Pull an environment from Vault and pipe it to a command
 
@@ -129,14 +144,14 @@ Options:
   -h, --help                     display help for command
 ```
 
-#### Examples
+###### Examples
 
 ```bash
 # Pull a secret from Vault and pipe it to a command
-vault pipe --profile my-profile secret/my-app env | grep -e '^MY_APP_'
+kvault pipe --profile my-profile secret/my-app env | grep -e '^MY_APP_'
 
 # Pull a secret from Vault and pipe it to a node script
-vault pipe --profile my-profile secret/my-app "node -e 'console.log(process.env.MY_APP_SECRET)'"
+kvault pipe --profile my-profile secret/my-app "node -e 'console.log(process.env.MY_APP_SECRET)'"
 ```
 
 ### rm
@@ -146,7 +161,7 @@ This command will remove a path or some versions of a secret.
 #### Options
 
 ```txt
-Usage: vault rm [options] <secrets-path> [versions...]
+Usage: kvault rm [options] <secrets-path> [versions...]
 
 Remove a secret from Vault
 
@@ -162,21 +177,21 @@ Options:
   -h, --help                     display help for command
 ```
 
-#### Examples
+###### Examples
 
 ```bash
 # Remove a path secret from Vault
-vault rm --profile my-profile secret/my-app
+kvault rm --profile my-profile secret/my-app
 
 # Remove a secret version from Vault
-vault rm --profile my-profile secret/my-app 3 4
+kvault rm --profile my-profile secret/my-app 3 4
 ```
 
 ### Reporting Issues
 
-If you are having trouble getting something to work with this tool or run into any problems, you can create a
-new issue [GitHub Issues](https://github.com/shahradelahi/vault-cli/issues).
+For reporting bugs and feature requests please open an issue
+on [GitHub](https://github.com/shahradelahi/vault-cli/issues).
 
 ### License
 
-This project is licensed under the GPL-3.0 License - see the [LICENSE](LICENSE) file for details
+[GPL-3.0](LICENSE) © [Shahrad Elahi](https://github.com/shahradelahi)
