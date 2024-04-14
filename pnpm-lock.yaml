@@ -29,9 +29,6 @@ dependencies:
   prompts:
     specifier: ^2.4.2
     version: 2.4.2
-  undici:
-    specifier: ^6.13.0
-    version: 6.13.0
   zod:
     specifier: ^3.22.4
     version: 3.22.4
