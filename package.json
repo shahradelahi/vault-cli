@@ -25,7 +25,7 @@
     "execa": "^8.0.1",
     "ora": "^8.0.1",
     "prompts": "^2.4.2",
-    "undici": "^6.6.2",
+    "undici": "^6.13.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
