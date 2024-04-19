@@ -31,7 +31,7 @@ dependencies:
     version: 2.4.2
   zod:
     specifier: ^3.22.4
-    version: 3.22.4
+    version: 3.22.5
 
 devDependencies:
   '@types/prompts':
@@ -291,7 +291,7 @@ packages:
       lodash.omit: 4.5.0
       lodash.pick: 4.4.0
       undici: 6.13.0
-      zod: 3.22.4
+      zod: 3.22.5
       zod-request: 0.2.2
     dev: false
 
@@ -1223,7 +1223,7 @@ packages:
     dev: true
 
   /undici@6.13.0:
-    resolution: { integrity: sha512-Q2rtqmZWrbP8nePMq7mOJIN98M0fYvSgV89vwl/BQRT4mDOeY2GXZngfGpcBBhtky3woM7G24wZV3Q304Bv6cw== }
+    resolution: {integrity: sha512-Q2rtqmZWrbP8nePMq7mOJIN98M0fYvSgV89vwl/BQRT4mDOeY2GXZngfGpcBBhtky3woM7G24wZV3Q304Bv6cw==}
     engines: {node: '>=18.0'}
     dev: false
 
@@ -1260,9 +1260,9 @@ packages:
     engines: {node: '>=18.0.0'}
     dependencies:
       mustache: 4.2.0
-      zod: 3.22.4
+      zod: 3.22.5
     dev: false
 
-  /zod@3.22.4:
-    resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
+  /zod@3.22.5:
+    resolution: {integrity: sha512-HqnGsCdVZ2xc0qWPLdO25WnseXThh0kEYKIdV5F/hTHO75hNZFp8thxSeHhiPrHZKrFTo1SOgkAj9po5bexZlw==}
     dev: false
