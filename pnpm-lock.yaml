@@ -9,8 +9,8 @@ dependencies:
     specifier: ^2.2.5
     version: 2.2.5
   '@litehex/node-vault':
-    specifier: 0.2.1
-    version: 0.2.1
+    specifier: 0.2.5
+    version: 0.2.5
   chalk:
     specifier: ^5.3.0
     version: 5.3.0
@@ -284,14 +284,14 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /@litehex/node-vault@0.2.1:
-    resolution: {integrity: sha512-PjKcYFU2Rhzj9KeU42fBuFnx/8DqAmQeOkKFfQbgJtDBF9vnqQzwosS9ZGHfo17dul86652eYqOWEWj+FIMZNg==}
+  /@litehex/node-vault@0.2.5:
+    resolution: {integrity: sha512-ijEElaQMk4HMYkS8S9l8XnXgmqb+O255a+UJKP86xEqSjWhg8po5lkNs818E4TIOPlJqilkCCxCP7pG7PxztEg==}
     engines: {node: '>=18.0.0'}
     dependencies:
       lodash.omit: 4.5.0
       lodash.pick: 4.4.0
-      undici: 6.13.0
-      zod: 3.22.4
+      undici: 6.18.2
+      zod: 3.23.8
       zod-request: 0.2.2
     dev: false
 
@@ -1222,9 +1222,9 @@ packages:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
     dev: true
 
-  /undici@6.13.0:
-    resolution: { integrity: sha512-Q2rtqmZWrbP8nePMq7mOJIN98M0fYvSgV89vwl/BQRT4mDOeY2GXZngfGpcBBhtky3woM7G24wZV3Q304Bv6cw== }
-    engines: {node: '>=18.0'}
+  /undici@6.18.2:
+    resolution: {integrity: sha512-o/MQLTwRm9IVhOqhZ0NQ9oXax1ygPjw6Vs+Vq/4QRjbOAC3B1GCHy7TYxxbExKlb7bzDRzt9vBWU6BDz0RFfYg==}
+    engines: {node: '>=18.17'}
     dev: false
 
   /webidl-conversions@4.0.2:
@@ -1260,9 +1260,13 @@ packages:
     engines: {node: '>=18.0.0'}
     dependencies:
       mustache: 4.2.0
-      zod: 3.22.4
+      zod: 3.23.8
     dev: false
 
   /zod@3.22.4:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
+    dev: false
+
+  /zod@3.23.8:
+    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
     dev: false
