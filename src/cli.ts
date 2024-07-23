@@ -11,9 +11,15 @@ async function main() {
   const packageInfo = await getPackageInfo();
 
   const program = new Command()
-    .name('vault')
-    .description('Manage your secrets on HashiCorp Vault')
-    .version(packageInfo.version || '1.0.0', '-v, --version', 'display the version number');
+    .name('kvault')
+    .description(
+      `\
+Manage your HashiCorp Vault Key/Value v2 secret engines from the command line.
+
+Author: ${packageInfo.author}
+License: ${packageInfo.license}`
+    )
+    .version(packageInfo.version || '0.0.0');
 
   program
     .addCommand(makeProfile)
