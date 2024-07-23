@@ -10,7 +10,6 @@ import { doesSecretPathExist, readKV2Path } from '@/lib/vault.ts';
 import { getUnsealedClient, resolveAccessiblePath } from '@/lib/helpers.ts';
 import { fsAccess } from '@/utils/fs-access.ts';
 import { promises } from 'node:fs';
-import { VaultError } from '@litehex/node-vault';
 import { EnvType } from '@/lib/env.ts';
 
 export const pull = new Command()
@@ -56,15 +55,15 @@ export const pull = new Command()
       const spinner = ora('Pulling secrets from Vault').start();
 
       const { mountPath, path: secretPath } = readKV2Path(vaultPath);
-      const read = await vc.kv2.read({
+      const { data, error } = await vc.kv2.read({
         mountPath,
         path: secretPath
       });
-      if ('errors' in read) {
-        return handleError(new VaultError(read.errors));
+      if (error) {
+        handleError(error);
       }
 
-      const { data: secrets } = read.data;
+      const { data: secrets } = data.data;
       if (!secrets) {
         logger.error(`No secrets found at ${vaultPath}.`);
         process.exitCode = 1;
