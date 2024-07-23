@@ -1,11 +1,12 @@
 import { Command } from 'commander';
-import logger from '@/logger.ts';
-import { handleError } from '@/utils/handle-error.ts';
+import { execaCommand } from 'execa';
+import ora from 'ora';
 import { z } from 'zod';
+
 import { getUnsealedClient, resolveAccessiblePath } from '@/lib/helpers.ts';
 import { doesSecretPathExist, readKV2Path } from '@/lib/vault.ts';
-import ora from 'ora';
-import { execaCommand } from 'execa';
+import logger from '@/logger.ts';
+import { handleError } from '@/utils/handle-error.ts';
 
 export const pipe = new Command()
   .command('pipe <secrets-path>')
@@ -26,12 +27,12 @@ export const pipe = new Command()
           token: z.string().optional(),
           cwd: z.string().default(process.cwd()),
           vaultPath: z.string(),
-          command: z.array(z.string()).default([])
+          command: z.array(z.string()).default([]),
         })
         .parse({
           vaultPath,
           command,
-          ...opts
+          ...opts,
         });
 
       const cwd = await resolveAccessiblePath(options.cwd);
@@ -49,7 +50,7 @@ export const pipe = new Command()
       const { mountPath, path: secretPath } = readKV2Path(vaultPath);
       const { data, error } = await vc.kv2.read({
         mountPath,
-        path: secretPath
+        path: secretPath,
       });
       if (error) {
         handleError(error);
@@ -71,7 +72,7 @@ export const pipe = new Command()
         cwd,
         env: secrets,
         stdio: 'inherit',
-        cleanup: true
+        cleanup: true,
       });
     } catch (e) {
       handleError(e);

@@ -1,16 +1,17 @@
-import path from 'node:path';
-import { Command } from 'commander';
-import logger from '@/logger.ts';
-import { handleError } from '@/utils/handle-error.ts';
-import { z } from 'zod';
-import prompts from 'prompts';
-import ora from 'ora';
-import chalk from 'chalk';
-import { doesSecretPathExist, readKV2Path } from '@/lib/vault.ts';
-import { getUnsealedClient, resolveAccessiblePath } from '@/lib/helpers.ts';
-import { fsAccess } from '@/utils/fs-access.ts';
 import { promises } from 'node:fs';
+import path from 'node:path';
+import chalk from 'chalk';
+import { Command } from 'commander';
+import ora from 'ora';
+import prompts from 'prompts';
+import { z } from 'zod';
+
 import { EnvType } from '@/lib/env.ts';
+import { getUnsealedClient, resolveAccessiblePath } from '@/lib/helpers.ts';
+import { doesSecretPathExist, readKV2Path } from '@/lib/vault.ts';
+import logger from '@/logger.ts';
+import { fsAccess } from '@/utils/fs-access.ts';
+import { handleError } from '@/utils/handle-error.ts';
 
 export const pull = new Command()
   .command('pull <secrets-path>')
@@ -35,11 +36,11 @@ export const pull = new Command()
           vaultPath: z.string(),
           outputFile: z.string().optional(),
           format: z.enum(['dotenv', 'json', 'shell']).default('dotenv'),
-          force: z.boolean().default(false)
+          force: z.boolean().default(false),
         })
         .parse({
           ...opts,
-          vaultPath
+          vaultPath,
         });
 
       const cwd = await resolveAccessiblePath(options.cwd);
@@ -57,7 +58,7 @@ export const pull = new Command()
       const { mountPath, path: secretPath } = readKV2Path(vaultPath);
       const { data, error } = await vc.kv2.read({
         mountPath,
-        path: secretPath
+        path: secretPath,
       });
       if (error) {
         handleError(error);
@@ -104,7 +105,7 @@ export const pull = new Command()
           type: 'confirm',
           name: 'value',
           message: `The file ${envAbsPath} already exists. Do you want to overwrite it?`,
-          initial: false
+          initial: false,
         });
 
         if (!response.value) {

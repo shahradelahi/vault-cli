@@ -1,10 +1,11 @@
-import { Command } from 'commander';
-import { getCredentialsFromOpts } from '@/lib/helpers.ts';
-import { z } from 'zod';
-import logger from '@/logger.ts';
 import { Client } from '@litehex/node-vault';
-import { handleError } from '@/utils/handle-error.ts';
+import { Command } from 'commander';
 import ora from 'ora';
+import { z } from 'zod';
+
+import { getCredentialsFromOpts } from '@/lib/helpers.ts';
+import logger from '@/logger.ts';
+import { handleError } from '@/utils/handle-error.ts';
 
 export const seal = new Command()
   .command('seal')
@@ -18,7 +19,7 @@ export const seal = new Command()
       const options = z
         .object({
           profile: z.string().optional(),
-          endpointUrl: z.string().optional()
+          endpointUrl: z.string().optional(),
         })
         .parse(opts);
 
@@ -26,7 +27,7 @@ export const seal = new Command()
 
       const vc = new Client({
         endpoint: credentials.endpointUrl,
-        token: credentials.token
+        token: credentials.token,
       });
 
       const { data: status, error } = await vc.sealStatus();

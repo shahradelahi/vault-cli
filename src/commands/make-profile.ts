@@ -1,17 +1,18 @@
-import { Command } from 'commander';
-import logger from '@/logger.ts';
-import prompts from 'prompts';
 import chalk from 'chalk';
+import { Command } from 'commander';
+import prompts from 'prompts';
 import { z } from 'zod';
-import { handleError } from '@/utils/handle-error.ts';
+
 import { ensureCredentialsPaths } from '@/lib/credentials.ts';
 import { getProfile, setProfile } from '@/lib/profile.ts';
+import logger from '@/logger.ts';
+import { handleError } from '@/utils/handle-error.ts';
 
 const makeProfileOptionsSchema = z.object({
   name: z.string(),
   endpointUrl: z.string(),
   token: z.string(),
-  force: z.boolean()
+  force: z.boolean(),
 });
 
 export const makeProfile = new Command()
@@ -26,7 +27,7 @@ export const makeProfile = new Command()
     try {
       const options = makeProfileOptionsSchema.parse({
         name,
-        ...opts
+        ...opts,
       });
 
       await ensureCredentialsPaths();
@@ -39,7 +40,7 @@ export const makeProfile = new Command()
           type: 'confirm',
           name: 'overwrite',
           message: `Profile "${name}" already exists. Do you wish to overwrite?`,
-          initial: false
+          initial: false,
         });
 
         if (!overwrite) {
@@ -51,7 +52,7 @@ export const makeProfile = new Command()
 
       await setProfile(name, {
         endpointUrl: options.endpointUrl,
-        token: options.token
+        token: options.token,
       });
 
       logger.log('');

@@ -1,11 +1,12 @@
-import { z } from 'zod';
+import chalk from 'chalk';
 import { Command } from 'commander';
-import logger from '@/logger.ts';
+import ora from 'ora';
+import prompts from 'prompts';
+import { z } from 'zod';
+
 import { getUnsealedClient } from '@/lib/helpers.ts';
 import { doesSecretPathExist } from '@/lib/vault.ts';
-import prompts from 'prompts';
-import ora from 'ora';
-import chalk from 'chalk';
+import logger from '@/logger.ts';
 import { handleError } from '@/utils/handle-error.ts';
 
 const removeOptionsSchema = z.object({
@@ -14,7 +15,7 @@ const removeOptionsSchema = z.object({
   token: z.string().optional(),
   vaultPath: z.string(),
   versions: z.array(z.string()).default([]),
-  force: z.boolean().default(false)
+  force: z.boolean().default(false),
 });
 
 export const remove = new Command()
@@ -32,7 +33,7 @@ export const remove = new Command()
       const options = removeOptionsSchema.parse({
         ...opts,
         versions,
-        vaultPath
+        vaultPath,
       });
 
       const vc = await getUnsealedClient(options);
@@ -53,7 +54,7 @@ export const remove = new Command()
                   vaultPath
                 )}? (${options.versions.join(', ')})`
               : `Are you sure you want to remove everything at ${chalk.cyan(vaultPath)}?`,
-          initial: false
+          initial: false,
         });
 
         if (!confirm.value) {
@@ -76,12 +77,12 @@ export const remove = new Command()
         await vc.kv2.delete({
           mountPath: 'secret',
           path: vaultPath,
-          versions: options.versions.filter((v) => !isNaN(parseInt(v))).map((v) => parseInt(v))
+          versions: options.versions.filter((v) => !isNaN(parseInt(v))).map((v) => parseInt(v)),
         });
       } else {
         await vc.kv2.deleteMetadata({
           mountPath: 'secret',
-          path: vaultPath
+          path: vaultPath,
         });
       }
 

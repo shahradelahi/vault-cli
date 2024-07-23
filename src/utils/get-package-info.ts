@@ -1,7 +1,8 @@
-import { type PackageJson } from 'type-fest';
-import { fileURLToPath } from 'node:url';
-import path from 'node:path';
 import { promises } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { type PackageJson } from 'type-fest';
+
 import { isJson } from '@/utils/is-json.ts';
 
 export async function getPackageInfo() {

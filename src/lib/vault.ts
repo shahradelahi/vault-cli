@@ -5,7 +5,7 @@ export async function doesSecretPathExist(vc: Client, path: string): Promise<boo
     const { mountPath, path: secretPath } = readKV2Path(path);
     const res = await vc.kv2.read({
       mountPath,
-      path: secretPath
+      path: secretPath,
     });
     return !('errors' in res);
   } catch (e) {
@@ -29,7 +29,7 @@ export function readKV2Path(path: string): {
 
   return {
     mountPath,
-    path: rest.join('/')
+    path: rest.join('/'),
   };
 }
 

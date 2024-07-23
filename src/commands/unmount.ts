@@ -1,12 +1,13 @@
+import { VaultError } from '@litehex/node-vault';
+import chalk from 'chalk';
 import { Command } from 'commander';
-import logger from '@/logger.ts';
+import ora from 'ora';
 import { z } from 'zod';
+
 import { getUnsealedClient } from '@/lib/helpers.ts';
 import { hasEngine } from '@/lib/vault.ts';
-import chalk from 'chalk';
-import ora from 'ora';
+import logger from '@/logger.ts';
 import { handleError } from '@/utils/handle-error.ts';
-import { VaultError } from '@litehex/node-vault';
 
 export const unmount = new Command()
   .command('unmount <mount-path>')
@@ -22,7 +23,7 @@ export const unmount = new Command()
         .object({
           profile: z.string().optional(),
           endpointUrl: z.string().optional(),
-          token: z.string().optional()
+          token: z.string().optional(),
         })
         .parse(opts);
 

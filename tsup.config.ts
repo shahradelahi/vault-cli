@@ -6,5 +6,5 @@ export default defineConfig({
   entry: ['src/cli.ts'],
   format: ['esm'],
   target: 'esnext',
-  outDir: 'dist'
+  outDir: 'dist',
 });

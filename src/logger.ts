@@ -48,5 +48,5 @@ export default {
   bgBlue: chalk.bgBlue,
   bgMagenta: chalk.bgMagenta,
   bgWhite: chalk.bgWhite,
-  bgBlack: chalk.bgBlack
+  bgBlack: chalk.bgBlack,
 };
