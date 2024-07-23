@@ -1,19 +1,19 @@
 import chalk from 'chalk';
 
 export function error(...args: unknown[]) {
-  console.log(chalk.red(...args));
+  log(chalk.red(...args));
 }
 
 export function warn(...args: unknown[]) {
-  console.log(chalk.yellow(...args));
+  log(chalk.yellow(...args));
 }
 
 export function info(...args: unknown[]) {
-  console.log(chalk.cyan(...args));
+  log(chalk.cyan(...args));
 }
 
 export function success(...args: unknown[]) {
-  console.log(chalk.green(...args));
+  log(chalk.green(...args));
 }
 
 export function highlight(...args: unknown[]) {
@@ -21,7 +21,7 @@ export function highlight(...args: unknown[]) {
 }
 
 export function log(...args: unknown[]) {
-  console.log(...args);
+  console.log(...args); // eslint-disable-line no-console
 }
 
 export default {

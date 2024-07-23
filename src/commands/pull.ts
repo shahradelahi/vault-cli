@@ -88,7 +88,7 @@ export const pull = new Command()
 
       if (!options.outputFile) {
         logger.log('');
-        console.log(
+        logger.log(
           `${chalk.bold('Environment variables:')}\n${
             formattedEnv === '' ? secrets : formattedEnv.trim()
           }`

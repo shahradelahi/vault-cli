@@ -1,4 +1,3 @@
-import path from 'node:path';
 import { Command } from 'commander';
 import logger from '@/logger.ts';
 import { handleError } from '@/utils/handle-error.ts';
@@ -9,7 +8,7 @@ import ora from 'ora';
 import chalk from 'chalk';
 import { doesSecretPathExist, readKV2Path } from '@/lib/vault.ts';
 import { getUnsealedClient, resolveAccessiblePath } from '@/lib/helpers.ts';
-import { fsAccess } from '@/utils/fs-access.ts';
+import path from 'node:path';
 
 const pushOptionsSchema = z.object({
   profile: z.string().optional(),
@@ -40,7 +39,7 @@ export const push = new Command()
       });
 
       const cwd = await resolveAccessiblePath(options.cwd);
-      const envFile = await resolveAccessiblePath(envPath);
+      const envFile = path.resolve(cwd, options.envPath);
 
       const vc = await getUnsealedClient(options);
 
