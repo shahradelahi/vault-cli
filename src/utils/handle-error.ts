@@ -1,6 +1,6 @@
 import logger from '@/logger.ts';
 
-export function handleError(error: unknown) {
+export function handleError(error: unknown): never {
   if (typeof error === 'string') {
     logger.error(error);
     process.exit(1);

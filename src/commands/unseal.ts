@@ -2,7 +2,7 @@ import { Command } from 'commander';
 import { getCredentialsFromOpts } from '@/lib/helpers.ts';
 import { z } from 'zod';
 import logger from '@/logger.ts';
-import { Client, VaultError } from '@litehex/node-vault';
+import { Client } from '@litehex/node-vault';
 import { handleError } from '@/utils/handle-error.ts';
 import ora from 'ora';
 
@@ -39,10 +39,10 @@ export const unseal = new Command()
         token: credentials.token
       });
 
-      const status = await vc.sealStatus();
+      const { data: status, error } = await vc.sealStatus();
 
-      if ('errors' in status) {
-        return handleError(new VaultError(status.errors));
+      if (error) {
+        handleError(error);
       }
 
       if (!status.sealed) {
@@ -88,16 +88,16 @@ export const unseal = new Command()
       // t is total of keys required to unseal
       // progress is the number of keys left to unseal
       for (const key of options.keys) {
-        const res = await vc.unseal({ key });
-        if ('errors' in res) {
-          return handleError(new VaultError(res.errors));
+        const { data, error } = await vc.unseal({ key });
+        if (error) {
+          return handleError(error);
         }
 
-        if (!res.sealed || res.progress === 0) {
+        if (!data.sealed || data.progress === 0) {
           break;
         }
 
-        spinner.text = `Unsealing Vault (${res.t - res.progress}/${res.t})`;
+        spinner.text = `Unsealing Vault (${data.t - data.progress}/${data.t})`;
       }
 
       spinner.succeed('Vault unsealed.');

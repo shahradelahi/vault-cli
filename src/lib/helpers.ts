@@ -1,6 +1,6 @@
 import { getProfile } from '@/lib/profile.ts';
 import { Profile } from '@/typeings.ts';
-import { Client, VaultError } from '@litehex/node-vault';
+import { Client } from '@litehex/node-vault';
 import chalk from 'chalk';
 import path from 'node:path';
 import { fsAccess } from '@/utils/fs-access.ts';
@@ -38,9 +38,9 @@ export async function getUnsealedClient(options: any) {
     token: credentials.token
   });
 
-  const status = await vc.sealStatus();
-  if ('errors' in status) {
-    throw new VaultError(status.errors);
+  const { data: status, error } = await vc.sealStatus();
+  if (error) {
+    throw error;
   }
 
   if (status.sealed) {
