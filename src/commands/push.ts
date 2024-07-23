@@ -1,14 +1,15 @@
+import path from 'node:path';
+import chalk from 'chalk';
 import { Command } from 'commander';
-import logger from '@/logger.ts';
-import { handleError } from '@/utils/handle-error.ts';
-import { z } from 'zod';
-import prompts from 'prompts';
 import dotenv from 'dotenv';
 import ora from 'ora';
-import chalk from 'chalk';
-import { doesSecretPathExist, readKV2Path } from '@/lib/vault.ts';
+import prompts from 'prompts';
+import { z } from 'zod';
+
 import { getUnsealedClient, resolveAccessiblePath } from '@/lib/helpers.ts';
-import path from 'node:path';
+import { doesSecretPathExist, readKV2Path } from '@/lib/vault.ts';
+import logger from '@/logger.ts';
+import { handleError } from '@/utils/handle-error.ts';
 
 const pushOptionsSchema = z.object({
   profile: z.string().optional(),
@@ -17,7 +18,7 @@ const pushOptionsSchema = z.object({
   cwd: z.string(),
   envPath: z.string(),
   vaultPath: z.string(),
-  force: z.boolean().default(false)
+  force: z.boolean().default(false),
 });
 
 export const push = new Command()
@@ -35,7 +36,7 @@ export const push = new Command()
       const options = pushOptionsSchema.parse({
         ...opts,
         envPath,
-        vaultPath
+        vaultPath,
       });
 
       const cwd = await resolveAccessiblePath(options.cwd);
@@ -48,7 +49,7 @@ export const push = new Command()
           type: 'confirm',
           name: 'overwrite',
           message: `Secrets path "${vaultPath}" already exists. Do you wish to overwrite?`,
-          initial: false
+          initial: false,
         });
 
         if (!overwrite) {
@@ -68,7 +69,7 @@ export const push = new Command()
       await vc.kv2.write({
         mountPath,
         path: secretPath,
-        data: secrets
+        data: secrets,
       });
 
       logger.log('');

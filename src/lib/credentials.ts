@@ -1,10 +1,11 @@
-import path from 'node:path';
-import { fsAccess } from '@/utils/fs-access.ts';
 import { promises } from 'node:fs';
-import { Profile } from '@/typeings.ts';
-import toml from '@iarna/toml';
 import { homedir } from 'node:os';
+import path from 'node:path';
+import toml from '@iarna/toml';
+
 import logger from '@/logger.ts';
+import { Profile } from '@/typeings.ts';
+import { fsAccess } from '@/utils/fs-access.ts';
 
 export const BASE_PATH = path.resolve(homedir(), '.vault');
 

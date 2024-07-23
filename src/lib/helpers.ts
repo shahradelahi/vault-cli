@@ -1,8 +1,9 @@
-import { getProfile } from '@/lib/profile.ts';
-import { Profile } from '@/typeings.ts';
+import path from 'node:path';
 import { Client } from '@litehex/node-vault';
 import chalk from 'chalk';
-import path from 'node:path';
+
+import { getProfile } from '@/lib/profile.ts';
+import { Profile } from '@/typeings.ts';
 import { fsAccess } from '@/utils/fs-access.ts';
 
 export async function getCredentialsFromOpts(options: any): Promise<Profile> {
@@ -22,7 +23,7 @@ export async function getCredentialsFromOpts(options: any): Promise<Profile> {
     // return endpointUrl and token
     return {
       endpointUrl,
-      token
+      token,
     };
   }
 
@@ -35,7 +36,7 @@ export async function getUnsealedClient(options: any) {
 
   const vc = new Client({
     endpoint: credentials.endpointUrl,
-    token: credentials.token
+    token: credentials.token,
   });
 
   const { data: status, error } = await vc.sealStatus();

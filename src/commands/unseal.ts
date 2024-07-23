@@ -1,10 +1,11 @@
-import { Command } from 'commander';
-import { getCredentialsFromOpts } from '@/lib/helpers.ts';
-import { z } from 'zod';
-import logger from '@/logger.ts';
 import { Client } from '@litehex/node-vault';
-import { handleError } from '@/utils/handle-error.ts';
+import { Command } from 'commander';
 import ora from 'ora';
+import { z } from 'zod';
+
+import { getCredentialsFromOpts } from '@/lib/helpers.ts';
+import logger from '@/logger.ts';
+import { handleError } from '@/utils/handle-error.ts';
 
 export const unseal = new Command()
   .command('unseal')
@@ -22,21 +23,21 @@ export const unseal = new Command()
           profile: z.string().optional(),
           endpointUrl: z.string().optional(),
           keys: z.array(z.string()).default([]),
-          stdin: z.boolean().default(false)
+          stdin: z.boolean().default(false),
         })
         .parse({
           ...opts,
-          keys
+          keys,
         });
 
       const credentials = await getCredentialsFromOpts({
         ...options,
-        token: 'NOT_REQUIRED'
+        token: 'NOT_REQUIRED',
       });
 
       const vc = new Client({
         endpoint: credentials.endpointUrl,
-        token: credentials.token
+        token: credentials.token,
       });
 
       const { data: status, error } = await vc.sealStatus();

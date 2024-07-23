@@ -1,11 +1,12 @@
+import chalk from 'chalk';
 import { Command } from 'commander';
+import ora from 'ora';
+import { z } from 'zod';
+
+import { getUnsealedClient } from '@/lib/helpers.ts';
+import { hasEngine } from '@/lib/vault.ts';
 import logger from '@/logger.ts';
 import { handleError } from '@/utils/handle-error.ts';
-import { z } from 'zod';
-import { getUnsealedClient } from '@/lib/helpers.ts';
-import chalk from 'chalk';
-import ora from 'ora';
-import { hasEngine } from '@/lib/vault.ts';
 
 export const mount = new Command()
   .command('mount <mount-path>')
@@ -21,7 +22,7 @@ export const mount = new Command()
         .object({
           profile: z.string().optional(),
           endpointUrl: z.string().optional(),
-          token: z.string().optional()
+          token: z.string().optional(),
         })
         .parse(opts);
 
@@ -38,7 +39,7 @@ export const mount = new Command()
 
       const { error } = await vc.mount({
         mountPath,
-        type: 'kv-v2'
+        type: 'kv-v2',
       });
 
       if (error) {

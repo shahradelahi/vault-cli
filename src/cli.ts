@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-
 import { Command } from 'commander';
-import { getPackageInfo } from './utils/get-package-info.ts';
+
 import { makeProfile, mount, pipe, pull, push, remove, seal, unmount, unseal } from './commands';
+import { getPackageInfo } from './utils/get-package-info.ts';
 
 process.on('SIGINT', () => process.exit(0));
 process.on('SIGTERM', () => process.exit(0));
