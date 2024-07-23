@@ -34,6 +34,9 @@ dependencies:
     version: 3.22.4
 
 devDependencies:
+  '@sindresorhus/tsconfig':
+    specifier: ^6.0.0
+    version: 6.0.0
   '@types/prompts':
     specifier: ^2.4.9
     version: 2.4.9
@@ -476,6 +479,11 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@sindresorhus/tsconfig@6.0.0:
+    resolution: {integrity: sha512-+fUdfuDd/7O2OZ9/UvJy76IEWn2Tpvm2l+rwUoS2Yz4jCUTSNOQQv2PLWrwekt8cPLwHmpHaBpay34bkBmVl2Q==}
+    engines: {node: '>=18'}
+    dev: true
 
   /@types/node@20.10.0:
     resolution: {integrity: sha512-D0WfRmU9TQ8I9PFx9Yc+EBHw+vSpIub4IDvQivcp26PtPrdMGAq5SDcpXEo/epqa/DXotVpekHiLNTg3iaKXBQ==}
