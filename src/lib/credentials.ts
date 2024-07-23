@@ -4,6 +4,7 @@ import { promises } from 'node:fs';
 import { Profile } from '@/typeings.ts';
 import toml from '@iarna/toml';
 import { homedir } from 'node:os';
+import logger from '@/logger.ts';
 
 export const BASE_PATH = path.resolve(homedir(), '.vault');
 
@@ -27,7 +28,7 @@ async function checkPermissions(): Promise<void> {
 
   if (stats.mode !== 0o600) {
     await promises.chmod(CREDENTIALS_PATH, 0o600).catch(() => {
-      console.warn(
+      logger.warn(
         `The file ${CREDENTIALS_PATH} is readable by other users on this system! This is not recommended!`
       );
     });
@@ -37,7 +38,7 @@ async function checkPermissions(): Promise<void> {
 
   if (parentStats.mode !== 0o700) {
     await promises.chmod(BASE_PATH, 0o700).catch(() => {
-      console.warn(
+      logger.warn(
         `The directory ${BASE_PATH} is readable by other users on this system! This is not recommended!`
       );
     });
