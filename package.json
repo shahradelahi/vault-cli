@@ -1,7 +1,19 @@
 {
   "name": "kvault",
-  "description": "CLI for HashiCorp's Vault Key/Value V2 engine",
   "version": "0.1.0",
+  "description": "CLI for HashiCorp Vault Key/Value V2 secret engines",
+  "author": "Shahrad Elahi <shahrad@litehex.com> (https://github.com/shahradelahi)",
+  "license": "GPL-3.0",
+  "repository": "github:shahradelahi/vault-cli",
+  "homepage": "https://github.com/shahradelahi/vault-cli",
+  "keywords": [
+    "vault",
+    "cli",
+    "kv-v2",
+    "key-value",
+    "hashicorp",
+    "secrets"
+  ],
   "type": "module",
   "bin": {
     "kvault": "dist/cli.js"
@@ -9,6 +21,7 @@
   "files": [
     "dist/**"
   ],
+  "packageManager": "pnpm@9.6.0",
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup",
@@ -19,7 +32,6 @@
     "format": "prettier --write .",
     "prepublishOnly": "pnpm format:check && pnpm lint && pnpm build"
   },
-  "packageManager": "pnpm@9.6.0",
   "dependencies": {
     "@iarna/toml": "^2.2.5",
     "@litehex/node-vault": "1.0.0-canary.0",
@@ -42,20 +54,8 @@
     "type-fest": "^4.23.0",
     "typescript": "^5.5.4"
   },
-  "license": "GPL-3.0",
-  "author": "Shahrad Elahi <shahrad@litehex.com> (https://github.com/shahradelahi)",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/shahradelahi/vault-cli.git"
-  },
   "publishConfig": {
-    "access": "public"
-  },
-  "keywords": [
-    "vault",
-    "cli",
-    "kv-v2",
-    "hashicorp",
-    "secrets"
-  ]
+    "access": "public",
+    "provenance": true
+  }
 }

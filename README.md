@@ -1,35 +1,62 @@
-# Vault CLI
+# Vault CLI (kvault)
 
+[![CI](https://github.com/shahradelahi/vault-cli/workflows/CI/badge.svg)](https://github.com/shahradelahi/vault-cli/actions)
 [![npm](https://img.shields.io/npm/v/kvault)](https://www.npmjs.com/package/kvault)
 [![install size](https://packagephobia.com/badge?p=kvault)](https://packagephobia.com/result?p=kvault)
+[![license](https://img.shields.io/npm/l/kvault)](https://www.npmjs.com/package/kvault)
 
-> A CLI to access your HashiCorp's Vault Key/Value V2 secrets from the command line.
+_kvault_ is a CLI for managing HashiCorp Vault Key/Value V2 secret engines from the command line.
 
-### Usage
+---
 
-```bash
-npx kvault --help
-# Or
-bunx kvault --help
-```
-
-#### Make it global
-
-```bash
-npm install --global kvault
-```
-
-### Table of Contents
-
-- [Install](#make-it-global)
-- [Usage](#usage)
-- Commands
+- [Installation](#-installation)
+- [Usage](#-usage)
   - [Make Profile](#make-profile)
   - [Push](#push)
   - [Pull](#pull)
   - [Remove](#rm)
   - [Pipe](#pipe)
-- [Reporting Issues](#reporting-issues)
+- [Contributing](#-contributing)
+- [License](#license)
+
+## 📦 Installation
+
+```bash
+npx kvault --help # Or bunx kvault --help
+```
+
+###### Make it global
+
+```bash
+npm install --global kvault
+```
+
+## 📖 Usage
+
+```text
+Usage: kvault [options] [command]
+
+Manage your HashiCorp Vault Key/Value v2 secret engines from the command line.
+
+Author: Shahrad Elahi <shahrad@litehex.com> (https://github.com/shahradelahi)
+License: GPL-3.0
+
+Options:
+  -v, --version                               display the version number
+  -h, --help                                  display help for command
+
+Commands:
+  make-profile [options] <name>               Create a new vault profile
+  mount [options] <mount-path>                Mount a new KV2 secret engine
+  pipe [options] <secrets-path> [command...]  Pull an environment from Vault and pipe it to a command
+  push [options] <env-file> <secrets-path>    Push an environment to Vault
+  pull [options] <secrets-path>               Pull an environment from Vault
+  rm [options] <secrets-path> [versions...]   Remove a secret from Vault
+  seal [options]                              Seal Vault
+  unmount [options] <mount-path>              Unmount a secret engine
+  unseal [options] [keys...]                  Unseal Vault
+  help [command]                              display help for command
+```
 
 ### make-profile
 
@@ -167,7 +194,7 @@ Remove a secret from Vault
 
 Arguments:
   secrets-path
-  versions                       Versions to remove. By default, path will be removed (default: [])
+  versions                       Versions to remove. By default, path will be removed. (default: [])
 
 Options:
   -P, --profile <name>           Name of the profile to use
@@ -187,10 +214,11 @@ kvault rm --profile my-profile secret/my-app
 kvault rm --profile my-profile secret/my-app 3 4
 ```
 
-### Reporting Issues
+## 🤝 Contributing
 
-For reporting bugs and feature requests please open an issue
-on [GitHub](https://github.com/shahradelahi/vault-cli/issues).
+Want to contribute? Awesome! To show your support is to star the project, or to raise issues on [GitHub](https://github.com/shahradelahi/vault-cli).
+
+Thanks again for your support, it is much appreciated!
 
 ### License
 
