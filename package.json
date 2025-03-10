@@ -21,7 +21,7 @@
   "files": [
     "dist/**"
   ],
-  "packageManager": "pnpm@9.6.0",
+  "packageManager": "pnpm@9.15.9",
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup",
