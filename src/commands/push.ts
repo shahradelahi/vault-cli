@@ -6,10 +6,12 @@ import ora from 'ora';
 import prompts from 'prompts';
 import { z } from 'zod';
 
-import { getUnsealedClient, resolveAccessiblePath } from '@/lib/helpers.ts';
-import { doesSecretPathExist, readKV2Path } from '@/lib/vault.ts';
-import logger from '@/logger.ts';
-import { handleError } from '@/utils/handle-error.ts';
+import { getUnsealedClient, resolveAccessiblePath } from '@/lib/helpers';
+import { doesSecretPathExist, readKV2Path } from '@/lib/vault';
+import logger from '@/logger';
+import { handleError } from '@/utils/handle-error';
+
+import { EndpointUrlOption, TokenOption } from './options';
 
 const pushOptionsSchema = z.object({
   profile: z.string().optional(),
@@ -25,8 +27,8 @@ export const push = new Command()
   .command('push <env-file> <secrets-path>')
   .description('Push an environment to Vault')
   .option('-P, --profile <name>', 'Name of the profile to use.')
-  .option('--endpoint-url <endpoint-url>', 'Vault endpoint URL')
-  .option('--token <vault-token>', 'Vault token')
+  .addOption(EndpointUrlOption)
+  .addOption(TokenOption)
   .option('--cwd <cwd>', 'Current working directory', process.cwd())
   .option('--force', 'Write to Vault even if the secrets are in conflict', false)
   .action(async (envPath, vaultPath, opts) => {

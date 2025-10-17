@@ -3,7 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { type PackageJson } from 'type-fest';
 
-import { isJson } from '@/utils/is-json.ts';
+import { isJson } from '@/utils/is-json';
 
 export async function getPackageInfo() {
   const packageJsonPath = getPackageFilePath('../package.json');

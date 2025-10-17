@@ -6,19 +6,21 @@ import ora from 'ora';
 import prompts from 'prompts';
 import { z } from 'zod';
 
-import { EnvType } from '@/lib/env.ts';
-import { getUnsealedClient, resolveAccessiblePath } from '@/lib/helpers.ts';
-import { doesSecretPathExist, readKV2Path } from '@/lib/vault.ts';
-import logger from '@/logger.ts';
-import { fsAccess } from '@/utils/fs-access.ts';
-import { handleError } from '@/utils/handle-error.ts';
+import { EnvType } from '@/lib/env';
+import { getUnsealedClient, resolveAccessiblePath } from '@/lib/helpers';
+import { doesSecretPathExist, readKV2Path } from '@/lib/vault';
+import logger from '@/logger';
+import { fsAccess } from '@/utils/fs-access';
+import { handleError } from '@/utils/handle-error';
+
+import { EndpointUrlOption, TokenOption } from './options';
 
 export const pull = new Command()
   .command('pull <secrets-path>')
   .description('Pull an environment from Vault')
   .option('-P, --profile <name>', 'Name of the profile to use.')
-  .option('--endpoint-url <endpoint-url>', 'Vault endpoint URL')
-  .option('--token <vault-token>', 'Vault token')
+  .addOption(EndpointUrlOption)
+  .addOption(TokenOption)
   .option('-O, --output-file <output-path>', 'Path to write the environment file to')
   .option('-F, --format <format>', 'Format of the environment file', 'dotenv')
   .option('--cwd <cwd>', 'Current working directory', process.cwd())

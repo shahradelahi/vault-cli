@@ -1,4 +1,4 @@
-import logger from '@/logger.ts';
+import logger from '@/logger';
 
 export function handleError(error: unknown): never {
   if (typeof error === 'string') {

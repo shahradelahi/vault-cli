@@ -3,9 +3,9 @@ import { homedir } from 'node:os';
 import path from 'node:path';
 import toml from '@iarna/toml';
 
-import logger from '@/logger.ts';
-import { Profile } from '@/typeings.ts';
-import { fsAccess } from '@/utils/fs-access.ts';
+import logger from '@/logger';
+import { Profile } from '@/typeings';
+import { fsAccess } from '@/utils/fs-access';
 
 export const BASE_PATH = path.resolve(homedir(), '.vault');
 

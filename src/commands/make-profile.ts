@@ -3,10 +3,12 @@ import { Command } from 'commander';
 import prompts from 'prompts';
 import { z } from 'zod';
 
-import { ensureCredentialsPaths } from '@/lib/credentials.ts';
-import { getProfile, setProfile } from '@/lib/profile.ts';
-import logger from '@/logger.ts';
-import { handleError } from '@/utils/handle-error.ts';
+import { ensureCredentialsPaths } from '@/lib/credentials';
+import { getProfile, setProfile } from '@/lib/profile';
+import logger from '@/logger';
+import { handleError } from '@/utils/handle-error';
+
+import { EndpointUrlOption, TokenOption } from './options';
 
 const makeProfileOptionsSchema = z.object({
   name: z.string(),
@@ -18,8 +20,8 @@ const makeProfileOptionsSchema = z.object({
 export const makeProfile = new Command()
   .command('make-profile <name>')
   .description('Create a new vault profile')
-  .requiredOption('--endpoint-url <endpoint-url>', 'Vault endpoint URL')
-  .requiredOption('--token <vault-token>', 'Vault token')
+  .addOption(EndpointUrlOption.makeOptionMandatory())
+  .addOption(TokenOption.makeOptionMandatory())
   .option('--force', 'Overwrite existing profile', false)
   .action(async (name, opts) => {
     logger.log('');

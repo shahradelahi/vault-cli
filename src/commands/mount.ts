@@ -3,17 +3,19 @@ import { Command } from 'commander';
 import ora from 'ora';
 import { z } from 'zod';
 
-import { getUnsealedClient } from '@/lib/helpers.ts';
-import { hasEngine } from '@/lib/vault.ts';
-import logger from '@/logger.ts';
-import { handleError } from '@/utils/handle-error.ts';
+import { getUnsealedClient } from '@/lib/helpers';
+import { hasEngine } from '@/lib/vault';
+import logger from '@/logger';
+import { handleError } from '@/utils/handle-error';
+
+import { EndpointUrlOption, TokenOption } from './options';
 
 export const mount = new Command()
   .command('mount <mount-path>')
   .description('Mount a new KV2 secret engine')
   .option('-P, --profile <name>', 'Name of the profile to use.')
-  .option('--endpoint-url <endpoint-url>', 'Vault endpoint URL')
-  .option('--token <vault-token>', 'Vault token')
+  .addOption(EndpointUrlOption)
+  .addOption(TokenOption)
   .action(async (mountPath, opts) => {
     logger.log('');
 
