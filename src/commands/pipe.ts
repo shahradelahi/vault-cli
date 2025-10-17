@@ -3,18 +3,20 @@ import { execaCommand } from 'execa';
 import ora from 'ora';
 import { z } from 'zod';
 
-import { getUnsealedClient, resolveAccessiblePath } from '@/lib/helpers.ts';
-import { doesSecretPathExist, readKV2Path } from '@/lib/vault.ts';
-import logger from '@/logger.ts';
-import { handleError } from '@/utils/handle-error.ts';
+import { getUnsealedClient, resolveAccessiblePath } from '@/lib/helpers';
+import { doesSecretPathExist, readKV2Path } from '@/lib/vault';
+import logger from '@/logger';
+import { handleError } from '@/utils/handle-error';
+
+import { EndpointUrlOption, TokenOption } from './options';
 
 export const pipe = new Command()
   .command('pipe <secrets-path>')
   .argument('[command...]', 'Command to pipe to', [])
   .description('Pull an environment from Vault and pipe it to a command')
   .option('-P, --profile <name>', 'Name of the profile to use.')
-  .option('--endpoint-url <endpoint-url>', 'Vault endpoint URL')
-  .option('--token <vault-token>', 'Vault token')
+  .addOption(EndpointUrlOption)
+  .addOption(TokenOption)
   .option('--cwd <cwd>', 'Current working directory', process.cwd())
   .action(async (vaultPath, command, opts) => {
     logger.log('');

@@ -4,10 +4,12 @@ import ora from 'ora';
 import prompts from 'prompts';
 import { z } from 'zod';
 
-import { getUnsealedClient } from '@/lib/helpers.ts';
-import { doesSecretPathExist } from '@/lib/vault.ts';
-import logger from '@/logger.ts';
-import { handleError } from '@/utils/handle-error.ts';
+import { getUnsealedClient } from '@/lib/helpers';
+import { doesSecretPathExist } from '@/lib/vault';
+import logger from '@/logger';
+import { handleError } from '@/utils/handle-error';
+
+import { EndpointUrlOption, TokenOption } from './options';
 
 const removeOptionsSchema = z.object({
   profile: z.string().optional(),
@@ -23,8 +25,8 @@ export const remove = new Command()
   .description('Remove a secret from Vault')
   .argument('[versions...]', 'Versions to remove. By default, path will be removed.', [])
   .option('-P, --profile <name>', 'Name of the profile to use')
-  .option('--endpoint-url <endpoint-url>', 'Vault endpoint URL')
-  .option('--token <vault-token>', 'Vault token')
+  .addOption(EndpointUrlOption)
+  .addOption(TokenOption)
   .option('--force', 'Remove the secret without confirmation', false)
   .action(async (vaultPath, versions, opts) => {
     logger.log('');

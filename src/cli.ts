@@ -2,7 +2,7 @@
 import { Command } from 'commander';
 
 import { makeProfile, mount, pipe, pull, push, remove, seal, unmount, unseal } from './commands';
-import { getPackageInfo } from './utils/get-package-info.ts';
+import { getPackageInfo } from './utils/get-package-info';
 
 process.on('SIGINT', () => process.exit(0));
 process.on('SIGTERM', () => process.exit(0));

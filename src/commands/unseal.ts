@@ -3,16 +3,18 @@ import { Command } from 'commander';
 import ora from 'ora';
 import { z } from 'zod';
 
-import { getCredentialsFromOpts } from '@/lib/helpers.ts';
-import logger from '@/logger.ts';
-import { handleError } from '@/utils/handle-error.ts';
+import { getCredentialsFromOpts } from '@/lib/helpers';
+import logger from '@/logger';
+import { handleError } from '@/utils/handle-error';
+
+import { EndpointUrlOption } from './options';
 
 export const unseal = new Command()
   .command('unseal')
   .description('Unseal Vault')
   .argument('[keys...]', 'Unseal keys', [])
   .option('-P, --profile <name>', 'Name of the profile to use.')
-  .option('--endpoint-url <endpoint-url>', 'Vault endpoint URL')
+  .addOption(EndpointUrlOption)
   .option('--stdin', 'Read unseal keys from stdin')
   .action(async (keys, opts) => {
     logger.log('');

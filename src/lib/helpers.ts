@@ -2,9 +2,9 @@ import path from 'node:path';
 import { Client } from '@litehex/node-vault';
 import chalk from 'chalk';
 
-import { getProfile } from '@/lib/profile.ts';
-import { Profile } from '@/typeings.ts';
-import { fsAccess } from '@/utils/fs-access.ts';
+import { getProfile } from '@/lib/profile';
+import { Profile } from '@/typeings';
+import { fsAccess } from '@/utils/fs-access';
 
 export async function getCredentialsFromOpts(options: any): Promise<Profile> {
   const { profile: profileName, endpointUrl, token } = options;
