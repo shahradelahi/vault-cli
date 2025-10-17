@@ -3,7 +3,7 @@ import { Client } from '@litehex/node-vault';
 import chalk from 'chalk';
 
 import { getProfile } from '@/lib/profile';
-import { Profile } from '@/typeings';
+import { Profile } from '@/typings';
 import { fsAccess } from '@/utils/fs-access';
 
 export async function getCredentialsFromOpts(options: any): Promise<Profile> {

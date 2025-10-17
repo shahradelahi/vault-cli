@@ -2,7 +2,7 @@ import { promises } from 'node:fs';
 import toml from '@iarna/toml';
 
 import { CREDENTIALS_PATH, getCredentials } from '@/lib/credentials';
-import { Profile } from '@/typeings';
+import { Profile } from '@/typings';
 
 export async function getProfile(name: string): Promise<Profile | undefined> {
   const profile = await getCredentials();

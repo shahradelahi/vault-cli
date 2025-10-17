@@ -4,7 +4,7 @@ import path from 'node:path';
 import toml from '@iarna/toml';
 
 import logger from '@/logger';
-import { Profile } from '@/typeings';
+import { Profile } from '@/typings';
 import { fsAccess } from '@/utils/fs-access';
 
 export const BASE_PATH = path.resolve(homedir(), '.vault');
