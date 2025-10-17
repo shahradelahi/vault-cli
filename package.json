@@ -29,6 +29,7 @@
     "lint": "pnpm typecheck && eslint .",
     "lint:fix": "eslint --fix .",
     "prepublishOnly": "pnpm format:check && pnpm lint && pnpm build",
+    "test": "echo 'No tests found.';",
     "typecheck": "tsc --noEmit"
   },
   "prettier": "@shahrad/prettier-config",
