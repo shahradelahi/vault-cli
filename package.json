@@ -12,7 +12,7 @@
   ],
   "homepage": "https://github.com/shahradelahi/vault-cli",
   "repository": "github:shahradelahi/vault-cli",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "author": "Shahrad Elahi <shahrad@litehex.com> (https://github.com/shahradelahi)",
   "type": "module",
   "bin": {

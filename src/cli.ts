@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
 
-import { makeProfile, mount, pipe, pull, push, remove, seal, unmount, unseal } from './commands';
+import * as commands from './commands';
 import { getPackageInfo } from './utils/get-package-info';
 
 process.on('SIGINT', () => process.exit(0));
@@ -21,16 +21,9 @@ License: ${packageInfo.license}`
     )
     .version(packageInfo.version || '0.0.0');
 
-  program
-    .addCommand(makeProfile)
-    .addCommand(mount)
-    .addCommand(pipe)
-    .addCommand(push)
-    .addCommand(pull)
-    .addCommand(remove)
-    .addCommand(seal)
-    .addCommand(unmount)
-    .addCommand(unseal);
+  Object.values(commands).forEach((command) => {
+    program.addCommand(command);
+  });
 
   program.parse();
 }
