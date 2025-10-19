@@ -51,7 +51,7 @@
     "@types/prompts": "^2.4.9",
     "eslint": "^9.37.0",
     "prettier": "^3.6.2",
-    "testcontainers": "^10.16.0",
+    "testcontainers": "^11.7.1",
     "tsup": "^8.5.0",
     "type-fest": "^4.41.0",
     "typescript": "^5.9.3",
