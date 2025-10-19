@@ -3,11 +3,11 @@ import { Client } from '@litehex/node-vault';
 export async function doesSecretPathExist(vc: Client, path: string): Promise<boolean> {
   try {
     const { mountPath, path: secretPath } = readKV2Path(path);
-    const res = await vc.kv2.read({
+    const { error } = await vc.kv2.read({
       mountPath,
       path: secretPath,
     });
-    return !('errors' in res);
+    return !error;
   } catch (e) {
     return false;
   }
@@ -34,6 +34,6 @@ export function readKV2Path(path: string): {
 }
 
 export async function hasEngine(vc: Client, mountPath: string): Promise<boolean> {
-  const res = await vc.engineInfo({ mountPath });
-  return !('errors' in res);
+  const { error } = await vc.engineInfo({ mountPath });
+  return !error;
 }

@@ -39,18 +39,18 @@ Usage: kvault [options] [command]
 Manage your HashiCorp Vault Key/Value v2 secret engines from the command line.
 
 Author: Shahrad Elahi <shahrad@litehex.com> (https://github.com/shahradelahi)
-License: GPL-3.0
+License: MIT
 
 Options:
-  -v, --version                               display the version number
+  -V, --version                               output the version number
   -h, --help                                  display help for command
 
 Commands:
   make-profile [options] <name>               Create a new vault profile
   mount [options] <mount-path>                Mount a new KV2 secret engine
   pipe [options] <secrets-path> [command...]  Pull an environment from Vault and pipe it to a command
-  push [options] <env-file> <secrets-path>    Push an environment to Vault
   pull [options] <secrets-path>               Pull an environment from Vault
+  push [options] <env-file> <secrets-path>    Push an environment to Vault
   rm [options] <secrets-path> [versions...]   Remove a secret from Vault
   seal [options]                              Seal Vault
   unmount [options] <mount-path>              Unmount a secret engine
@@ -70,8 +70,8 @@ Usage: kvault make-profile [options] <name>
 Create a new vault profile
 
 Options:
-  --endpoint-url <endpoint-url>  Vault endpoint URL
-  --token <vault-token>          Vault token
+  --endpoint-url <endpoint-url>  Vault endpoint URL (env: VAULT_ENDPOINT_URL)
+  --token <vault-token>          Vault token (env: VAULT_TOKEN)
   --force                        Overwrite existing profile (default: false)
   -h, --help                     display help for command
 ```
@@ -96,8 +96,8 @@ Push an environment to Vault
 
 Options:
   -P, --profile <name>           Name of the profile to use.
-  --endpoint-url <endpoint-url>  Vault endpoint URL
-  --token <vault-token>          Vault token
+  --endpoint-url <endpoint-url>  Vault endpoint URL (env: VAULT_ENDPOINT_URL)
+  --token <vault-token>          Vault token (env: VAULT_TOKEN)
   --cwd <cwd>                    Current working directory (default: ".")
   --force                        Write to Vault even if the secrets are in conflict (default: false)
   -h, --help                     display help for command
@@ -126,8 +126,8 @@ Pull an environment from Vault
 
 Options:
   -P, --profile <name>             Name of the profile to use.
-  --endpoint-url <endpoint-url>    Vault endpoint URL
-  --token <vault-token>            Vault token
+  --endpoint-url <endpoint-url>    Vault endpoint URL (env: VAULT_ENDPOINT_URL)
+  --token <vault-token>            Vault token (env: VAULT_TOKEN)
   -O, --output-file <output-path>  Path to write the environment file to
   -F, --format <format>            Format of the environment file (default: "dotenv")
   --cwd <cwd>                      Current working directory (default: ".")
@@ -165,8 +165,8 @@ Arguments:
 
 Options:
   -P, --profile <name>           Name of the profile to use.
-  --endpoint-url <endpoint-url>  Vault endpoint URL
-  --token <vault-token>          Vault token
+  --endpoint-url <endpoint-url>  Vault endpoint URL (env: VAULT_ENDPOINT_URL)
+  --token <vault-token>          Vault token (env: VAULT_TOKEN)
   --cwd <cwd>                    Current working directory (default: ".")
   -h, --help                     display help for command
 ```
@@ -197,9 +197,9 @@ Arguments:
   versions                       Versions to remove. By default, path will be removed. (default: [])
 
 Options:
-  -P, --profile <name>           Name of the profile to use
-  --endpoint-url <endpoint-url>  Vault endpoint URL
-  --token <vault-token>          Vault token
+  -P, --profile <name>           Name of the profile to use.
+  --endpoint-url <endpoint-url>  Vault endpoint URL (env: VAULT_ENDPOINT_URL)
+  --token <vault-token>          Vault token (env: VAULT_TOKEN)
   --force                        Remove the secret without confirmation (default: false)
   -h, --help                     display help for command
 ```
@@ -222,4 +222,4 @@ Thanks again for your support, it is much appreciated!
 
 ### License
 
-[GPL-3.0](LICENSE) © [Shahrad Elahi](https://github.com/shahradelahi)
+[MIT](/LICENSE) © [Shahrad Elahi](https://github.com/shahradelahi) and [contributors](https://github.com/shahradelahi/vault-cli/graphs/contributors).
